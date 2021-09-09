@@ -1,8 +1,8 @@
 package org.telegram.tgnet;
 
 public class TLRPC$TL_messages_editChatTitle extends TLObject {
-    public static int constructor = -599447467;
-    public int chat_id;
+    public static int constructor = 1937260541;
+    public long chat_id;
     public String title;
 
     @Override // org.telegram.tgnet.TLObject
@@ -13,7 +13,7 @@ public class TLRPC$TL_messages_editChatTitle extends TLObject {
     @Override // org.telegram.tgnet.TLObject
     public void serializeToStream(AbstractSerializedData abstractSerializedData) {
         abstractSerializedData.writeInt32(constructor);
-        abstractSerializedData.writeInt32(this.chat_id);
+        abstractSerializedData.writeInt64(this.chat_id);
         abstractSerializedData.writeString(this.title);
     }
 }

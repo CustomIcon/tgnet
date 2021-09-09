@@ -37,7 +37,7 @@ public class TLRPC$TL_channelBannedRights_layer92 extends TLObject {
         this.send_gifs = (readInt32 & 16) != 0;
         this.send_games = (readInt32 & 32) != 0;
         this.send_inline = (readInt32 & 64) != 0;
-        if ((readInt32 & 128) != 0) {
+        if ((readInt32 & ConnectionsManager.RequestFlagNeedQuickAck) != 0) {
             z2 = true;
         }
         this.embed_links = z2;
@@ -61,7 +61,7 @@ public class TLRPC$TL_channelBannedRights_layer92 extends TLObject {
         this.flags = i6;
         int i7 = this.send_inline ? i6 | 64 : i6 & -65;
         this.flags = i7;
-        int i8 = this.embed_links ? i7 | 128 : i7 & -129;
+        int i8 = this.embed_links ? i7 | ConnectionsManager.RequestFlagNeedQuickAck : i7 & -129;
         this.flags = i8;
         abstractSerializedData.writeInt32(i8);
         abstractSerializedData.writeInt32(this.until_date);

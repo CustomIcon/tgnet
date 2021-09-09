@@ -1,10 +1,10 @@
 package org.telegram.tgnet;
 
 public class TLRPC$TL_messages_getRecentStickers extends TLObject {
-    public static int constructor = 1587647177;
+    public static int constructor = -1649852357;
     public boolean attached;
     public int flags;
-    public int hash;
+    public long hash;
 
     @Override // org.telegram.tgnet.TLObject
     public TLObject deserializeResponse(AbstractSerializedData abstractSerializedData, int i, boolean z) {
@@ -17,6 +17,6 @@ public class TLRPC$TL_messages_getRecentStickers extends TLObject {
         int i = this.attached ? this.flags | 1 : this.flags & -2;
         this.flags = i;
         abstractSerializedData.writeInt32(i);
-        abstractSerializedData.writeInt32(this.hash);
+        abstractSerializedData.writeInt64(this.hash);
     }
 }

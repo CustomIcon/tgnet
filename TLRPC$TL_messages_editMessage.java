@@ -1,7 +1,6 @@
 package org.telegram.tgnet;
 
 import java.util.ArrayList;
-import org.telegram.messenger.MessagesController;
 
 public class TLRPC$TL_messages_editMessage extends TLObject {
     public static int constructor = 1224152952;
@@ -28,7 +27,7 @@ public class TLRPC$TL_messages_editMessage extends TLObject {
         abstractSerializedData.writeInt32(i);
         this.peer.serializeToStream(abstractSerializedData);
         abstractSerializedData.writeInt32(this.id);
-        if ((this.flags & MessagesController.UPDATE_MASK_NEW_MESSAGE) != 0) {
+        if ((this.flags & 2048) != 0) {
             abstractSerializedData.writeString(this.message);
         }
         if ((this.flags & 16384) != 0) {
@@ -45,7 +44,7 @@ public class TLRPC$TL_messages_editMessage extends TLObject {
                 this.entities.get(i2).serializeToStream(abstractSerializedData);
             }
         }
-        if ((this.flags & MessagesController.UPDATE_MASK_MESSAGE_TEXT) != 0) {
+        if ((this.flags & 32768) != 0) {
             abstractSerializedData.writeInt32(this.schedule_date);
         }
     }

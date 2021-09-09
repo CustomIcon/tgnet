@@ -3,13 +3,13 @@ package org.telegram.tgnet;
 import java.util.ArrayList;
 
 public class TLRPC$TL_updateChannelReadMessagesContents extends TLRPC$Update {
-    public static int constructor = -1987495099;
-    public int channel_id;
+    public static int constructor = 1153291573;
+    public long channel_id;
     public ArrayList<Integer> messages = new ArrayList<>();
 
     @Override // org.telegram.tgnet.TLObject
     public void readParams(AbstractSerializedData abstractSerializedData, boolean z) {
-        this.channel_id = abstractSerializedData.readInt32(z);
+        this.channel_id = abstractSerializedData.readInt64(z);
         int readInt32 = abstractSerializedData.readInt32(z);
         if (readInt32 == 481674261) {
             int readInt322 = abstractSerializedData.readInt32(z);
@@ -24,7 +24,7 @@ public class TLRPC$TL_updateChannelReadMessagesContents extends TLRPC$Update {
     @Override // org.telegram.tgnet.TLObject
     public void serializeToStream(AbstractSerializedData abstractSerializedData) {
         abstractSerializedData.writeInt32(constructor);
-        abstractSerializedData.writeInt32(this.channel_id);
+        abstractSerializedData.writeInt64(this.channel_id);
         abstractSerializedData.writeInt32(481674261);
         int size = this.messages.size();
         abstractSerializedData.writeInt32(size);

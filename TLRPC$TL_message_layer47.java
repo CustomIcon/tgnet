@@ -1,7 +1,6 @@
 package org.telegram.tgnet;
 
 import android.text.TextUtils;
-import org.telegram.messenger.MessagesController;
 
 public class TLRPC$TL_message_layer47 extends TLRPC$TL_message {
     public static int constructor = -913120932;
@@ -15,10 +14,10 @@ public class TLRPC$TL_message_layer47 extends TLRPC$TL_message {
         this.mentioned = (readInt32 & 16) != 0;
         this.media_unread = (readInt32 & 32) != 0;
         this.id = abstractSerializedData.readInt32(z);
-        if ((this.flags & MessagesController.UPDATE_MASK_READ_DIALOG_MESSAGE) != 0) {
+        if ((this.flags & 256) != 0) {
             TLRPC$TL_peerUser tLRPC$TL_peerUser = new TLRPC$TL_peerUser();
             this.from_id = tLRPC$TL_peerUser;
-            tLRPC$TL_peerUser.user_id = abstractSerializedData.readInt32(z);
+            tLRPC$TL_peerUser.user_id = (long) abstractSerializedData.readInt32(z);
         }
         TLRPC$Peer TLdeserialize = TLRPC$Peer.TLdeserialize(abstractSerializedData, abstractSerializedData.readInt32(z), z);
         this.peer_id = TLdeserialize;
@@ -35,8 +34,8 @@ public class TLRPC$TL_message_layer47 extends TLRPC$TL_message {
             }
             this.fwd_from.date = abstractSerializedData.readInt32(z);
         }
-        if ((this.flags & MessagesController.UPDATE_MASK_NEW_MESSAGE) != 0) {
-            this.via_bot_id = abstractSerializedData.readInt32(z);
+        if ((this.flags & 2048) != 0) {
+            this.via_bot_id = (long) abstractSerializedData.readInt32(z);
         }
         if ((this.flags & 8) != 0) {
             TLRPC$TL_messageReplyHeader tLRPC$TL_messageReplyHeader = new TLRPC$TL_messageReplyHeader();
@@ -45,7 +44,7 @@ public class TLRPC$TL_message_layer47 extends TLRPC$TL_message {
         }
         this.date = abstractSerializedData.readInt32(z);
         this.message = abstractSerializedData.readString(z);
-        if ((this.flags & MessagesController.UPDATE_MASK_SELECT_DIALOG) != 0) {
+        if ((this.flags & 512) != 0) {
             TLRPC$MessageMedia TLdeserialize3 = TLRPC$MessageMedia.TLdeserialize(abstractSerializedData, abstractSerializedData.readInt32(z), z);
             this.media = TLdeserialize3;
             if (TLdeserialize3 != null && !TextUtils.isEmpty(TLdeserialize3.captionLegacy)) {
@@ -57,7 +56,7 @@ public class TLRPC$TL_message_layer47 extends TLRPC$TL_message {
         if ((this.flags & 64) != 0) {
             this.reply_markup = TLRPC$ReplyMarkup.TLdeserialize(abstractSerializedData, abstractSerializedData.readInt32(z), z);
         }
-        if ((this.flags & 128) != 0) {
+        if ((this.flags & ConnectionsManager.RequestFlagNeedQuickAck) != 0) {
             int readInt322 = abstractSerializedData.readInt32(z);
             if (readInt322 == 481674261) {
                 int readInt323 = abstractSerializedData.readInt32(z);
@@ -75,7 +74,7 @@ public class TLRPC$TL_message_layer47 extends TLRPC$TL_message {
                 return;
             }
         }
-        if ((this.flags & MessagesController.UPDATE_MASK_PHONE) != 0) {
+        if ((this.flags & 1024) != 0) {
             this.views = abstractSerializedData.readInt32(z);
         }
     }
@@ -93,8 +92,8 @@ public class TLRPC$TL_message_layer47 extends TLRPC$TL_message {
         this.flags = i4;
         abstractSerializedData.writeInt32(i4);
         abstractSerializedData.writeInt32(this.id);
-        if ((this.flags & MessagesController.UPDATE_MASK_READ_DIALOG_MESSAGE) != 0) {
-            abstractSerializedData.writeInt32(this.from_id.user_id);
+        if ((this.flags & 256) != 0) {
+            abstractSerializedData.writeInt32((int) this.from_id.user_id);
         }
         this.peer_id.serializeToStream(abstractSerializedData);
         if ((this.flags & 4) != 0) {
@@ -104,21 +103,21 @@ public class TLRPC$TL_message_layer47 extends TLRPC$TL_message {
             }
             abstractSerializedData.writeInt32(this.fwd_from.date);
         }
-        if ((this.flags & MessagesController.UPDATE_MASK_NEW_MESSAGE) != 0) {
-            abstractSerializedData.writeInt32(this.via_bot_id);
+        if ((this.flags & 2048) != 0) {
+            abstractSerializedData.writeInt32((int) this.via_bot_id);
         }
         if ((this.flags & 8) != 0) {
             abstractSerializedData.writeInt32(this.reply_to.reply_to_msg_id);
         }
         abstractSerializedData.writeInt32(this.date);
         abstractSerializedData.writeString(this.message);
-        if ((this.flags & MessagesController.UPDATE_MASK_SELECT_DIALOG) != 0) {
+        if ((this.flags & 512) != 0) {
             this.media.serializeToStream(abstractSerializedData);
         }
         if ((this.flags & 64) != 0) {
             this.reply_markup.serializeToStream(abstractSerializedData);
         }
-        if ((this.flags & 128) != 0) {
+        if ((this.flags & ConnectionsManager.RequestFlagNeedQuickAck) != 0) {
             abstractSerializedData.writeInt32(481674261);
             int size = this.entities.size();
             abstractSerializedData.writeInt32(size);
@@ -126,7 +125,7 @@ public class TLRPC$TL_message_layer47 extends TLRPC$TL_message {
                 this.entities.get(i5).serializeToStream(abstractSerializedData);
             }
         }
-        if ((this.flags & MessagesController.UPDATE_MASK_PHONE) != 0) {
+        if ((this.flags & 1024) != 0) {
             abstractSerializedData.writeInt32(this.views);
         }
         writeAttachPath(abstractSerializedData);

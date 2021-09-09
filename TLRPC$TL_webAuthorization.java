@@ -1,8 +1,8 @@
 package org.telegram.tgnet;
 
 public class TLRPC$TL_webAuthorization extends TLObject {
-    public static int constructor = -892779534;
-    public int bot_id;
+    public static int constructor = -1493633966;
+    public long bot_id;
     public String browser;
     public int date_active;
     public int date_created;
@@ -27,7 +27,7 @@ public class TLRPC$TL_webAuthorization extends TLObject {
     @Override // org.telegram.tgnet.TLObject
     public void readParams(AbstractSerializedData abstractSerializedData, boolean z) {
         this.hash = abstractSerializedData.readInt64(z);
-        this.bot_id = abstractSerializedData.readInt32(z);
+        this.bot_id = abstractSerializedData.readInt64(z);
         this.domain = abstractSerializedData.readString(z);
         this.browser = abstractSerializedData.readString(z);
         this.platform = abstractSerializedData.readString(z);
@@ -41,7 +41,7 @@ public class TLRPC$TL_webAuthorization extends TLObject {
     public void serializeToStream(AbstractSerializedData abstractSerializedData) {
         abstractSerializedData.writeInt32(constructor);
         abstractSerializedData.writeInt64(this.hash);
-        abstractSerializedData.writeInt32(this.bot_id);
+        abstractSerializedData.writeInt64(this.bot_id);
         abstractSerializedData.writeString(this.domain);
         abstractSerializedData.writeString(this.browser);
         abstractSerializedData.writeString(this.platform);

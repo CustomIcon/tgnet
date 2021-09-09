@@ -1,7 +1,6 @@
 package org.telegram.tgnet;
 
 import java.util.ArrayList;
-import org.telegram.messenger.MessagesController;
 
 public class TLRPC$TL_messages_forwardMessages extends TLObject {
     public static int constructor = -637606386;
@@ -29,11 +28,11 @@ public class TLRPC$TL_messages_forwardMessages extends TLObject {
         this.flags = i;
         int i2 = this.background ? i | 64 : i & -65;
         this.flags = i2;
-        int i3 = this.with_my_score ? i2 | MessagesController.UPDATE_MASK_READ_DIALOG_MESSAGE : i2 & -257;
+        int i3 = this.with_my_score ? i2 | 256 : i2 & -257;
         this.flags = i3;
-        int i4 = this.drop_author ? i3 | MessagesController.UPDATE_MASK_NEW_MESSAGE : i3 & -2049;
+        int i4 = this.drop_author ? i3 | 2048 : i3 & -2049;
         this.flags = i4;
-        int i5 = this.drop_media_captions ? i4 | MessagesController.UPDATE_MASK_SEND_STATE : i4 & -4097;
+        int i5 = this.drop_media_captions ? i4 | 4096 : i4 & -4097;
         this.flags = i5;
         abstractSerializedData.writeInt32(i5);
         this.from_peer.serializeToStream(abstractSerializedData);
@@ -50,7 +49,7 @@ public class TLRPC$TL_messages_forwardMessages extends TLObject {
             abstractSerializedData.writeInt64(this.random_id.get(i7).longValue());
         }
         this.to_peer.serializeToStream(abstractSerializedData);
-        if ((this.flags & MessagesController.UPDATE_MASK_PHONE) != 0) {
+        if ((this.flags & 1024) != 0) {
             abstractSerializedData.writeInt32(this.schedule_date);
         }
     }

@@ -1,7 +1,5 @@
 package org.telegram.tgnet;
 
-import org.telegram.messenger.MessagesController;
-
 public class TLRPC$TL_groupCallParticipant extends TLObject {
     public static int constructor = -341428482;
     public String about;
@@ -61,11 +59,11 @@ public class TLRPC$TL_groupCallParticipant extends TLObject {
         this.can_self_unmute = (readInt32 & 4) != 0;
         this.just_joined = (readInt32 & 16) != 0;
         this.versioned = (readInt32 & 32) != 0;
-        this.min = (readInt32 & MessagesController.UPDATE_MASK_READ_DIALOG_MESSAGE) != 0;
-        this.muted_by_you = (readInt32 & MessagesController.UPDATE_MASK_SELECT_DIALOG) != 0;
-        this.volume_by_admin = (readInt32 & MessagesController.UPDATE_MASK_PHONE) != 0;
-        this.self = (readInt32 & MessagesController.UPDATE_MASK_SEND_STATE) != 0;
-        if ((readInt32 & MessagesController.UPDATE_MASK_MESSAGE_TEXT) != 0) {
+        this.min = (readInt32 & 256) != 0;
+        this.muted_by_you = (readInt32 & 512) != 0;
+        this.volume_by_admin = (readInt32 & 1024) != 0;
+        this.self = (readInt32 & 4096) != 0;
+        if ((readInt32 & 32768) != 0) {
             z2 = true;
         }
         this.video_joined = z2;
@@ -75,13 +73,13 @@ public class TLRPC$TL_groupCallParticipant extends TLObject {
             this.active_date = abstractSerializedData.readInt32(z);
         }
         this.source = abstractSerializedData.readInt32(z);
-        if ((this.flags & 128) != 0) {
+        if ((this.flags & ConnectionsManager.RequestFlagNeedQuickAck) != 0) {
             this.volume = abstractSerializedData.readInt32(z);
         }
-        if ((this.flags & MessagesController.UPDATE_MASK_NEW_MESSAGE) != 0) {
+        if ((this.flags & 2048) != 0) {
             this.about = abstractSerializedData.readString(z);
         }
-        if ((this.flags & MessagesController.UPDATE_MASK_CHAT) != 0) {
+        if ((this.flags & 8192) != 0) {
             this.raise_hand_rating = abstractSerializedData.readInt64(z);
         }
         if ((this.flags & 64) != 0) {
@@ -105,15 +103,15 @@ public class TLRPC$TL_groupCallParticipant extends TLObject {
         this.flags = i4;
         int i5 = this.versioned ? i4 | 32 : i4 & -33;
         this.flags = i5;
-        int i6 = this.min ? i5 | MessagesController.UPDATE_MASK_READ_DIALOG_MESSAGE : i5 & -257;
+        int i6 = this.min ? i5 | 256 : i5 & -257;
         this.flags = i6;
-        int i7 = this.muted_by_you ? i6 | MessagesController.UPDATE_MASK_SELECT_DIALOG : i6 & -513;
+        int i7 = this.muted_by_you ? i6 | 512 : i6 & -513;
         this.flags = i7;
-        int i8 = this.volume_by_admin ? i7 | MessagesController.UPDATE_MASK_PHONE : i7 & -1025;
+        int i8 = this.volume_by_admin ? i7 | 1024 : i7 & -1025;
         this.flags = i8;
-        int i9 = this.self ? i8 | MessagesController.UPDATE_MASK_SEND_STATE : i8 & -4097;
+        int i9 = this.self ? i8 | 4096 : i8 & -4097;
         this.flags = i9;
-        int i10 = this.video_joined ? i9 | MessagesController.UPDATE_MASK_MESSAGE_TEXT : i9 & -32769;
+        int i10 = this.video_joined ? i9 | 32768 : i9 & -32769;
         this.flags = i10;
         abstractSerializedData.writeInt32(i10);
         this.peer.serializeToStream(abstractSerializedData);
@@ -122,13 +120,13 @@ public class TLRPC$TL_groupCallParticipant extends TLObject {
             abstractSerializedData.writeInt32(this.active_date);
         }
         abstractSerializedData.writeInt32(this.source);
-        if ((this.flags & 128) != 0) {
+        if ((this.flags & ConnectionsManager.RequestFlagNeedQuickAck) != 0) {
             abstractSerializedData.writeInt32(this.volume);
         }
-        if ((this.flags & MessagesController.UPDATE_MASK_NEW_MESSAGE) != 0) {
+        if ((this.flags & 2048) != 0) {
             abstractSerializedData.writeString(this.about);
         }
-        if ((this.flags & MessagesController.UPDATE_MASK_CHAT) != 0) {
+        if ((this.flags & 8192) != 0) {
             abstractSerializedData.writeInt64(this.raise_hand_rating);
         }
         if ((this.flags & 64) != 0) {

@@ -1,8 +1,8 @@
 package org.telegram.tgnet;
 
 public class TLRPC$TL_messages_getFeaturedStickers extends TLObject {
-    public static int constructor = 766298703;
-    public int hash;
+    public static int constructor = 1685588756;
+    public long hash;
 
     @Override // org.telegram.tgnet.TLObject
     public TLObject deserializeResponse(AbstractSerializedData abstractSerializedData, int i, boolean z) {
@@ -12,6 +12,6 @@ public class TLRPC$TL_messages_getFeaturedStickers extends TLObject {
     @Override // org.telegram.tgnet.TLObject
     public void serializeToStream(AbstractSerializedData abstractSerializedData) {
         abstractSerializedData.writeInt32(constructor);
-        abstractSerializedData.writeInt32(this.hash);
+        abstractSerializedData.writeInt64(this.hash);
     }
 }

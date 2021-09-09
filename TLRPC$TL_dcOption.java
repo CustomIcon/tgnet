@@ -1,7 +1,5 @@
 package org.telegram.tgnet;
 
-import org.telegram.messenger.MessagesController;
-
 public class TLRPC$TL_dcOption extends TLObject {
     public static int constructor = 414687501;
     public boolean cdn;
@@ -43,7 +41,7 @@ public class TLRPC$TL_dcOption extends TLObject {
         this.id = abstractSerializedData.readInt32(z);
         this.ip_address = abstractSerializedData.readString(z);
         this.port = abstractSerializedData.readInt32(z);
-        if ((this.flags & MessagesController.UPDATE_MASK_PHONE) != 0) {
+        if ((this.flags & 1024) != 0) {
             this.secret = abstractSerializedData.readByteArray(z);
         }
     }
@@ -65,7 +63,7 @@ public class TLRPC$TL_dcOption extends TLObject {
         abstractSerializedData.writeInt32(this.id);
         abstractSerializedData.writeString(this.ip_address);
         abstractSerializedData.writeInt32(this.port);
-        if ((this.flags & MessagesController.UPDATE_MASK_PHONE) != 0) {
+        if ((this.flags & 1024) != 0) {
             abstractSerializedData.writeByteArray(this.secret);
         }
     }

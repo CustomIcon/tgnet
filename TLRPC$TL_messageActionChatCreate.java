@@ -1,7 +1,7 @@
 package org.telegram.tgnet;
 
 public class TLRPC$TL_messageActionChatCreate extends TLRPC$MessageAction {
-    public static int constructor = -1503425638;
+    public static int constructor = -1119368275;
 
     @Override // org.telegram.tgnet.TLObject
     public void readParams(AbstractSerializedData abstractSerializedData, boolean z) {
@@ -10,7 +10,7 @@ public class TLRPC$TL_messageActionChatCreate extends TLRPC$MessageAction {
         if (readInt32 == 481674261) {
             int readInt322 = abstractSerializedData.readInt32(z);
             for (int i = 0; i < readInt322; i++) {
-                this.users.add(Integer.valueOf(abstractSerializedData.readInt32(z)));
+                this.users.add(Long.valueOf(abstractSerializedData.readInt64(z)));
             }
         } else if (z) {
             throw new RuntimeException(String.format("wrong Vector magic, got %x", Integer.valueOf(readInt32)));
@@ -25,7 +25,7 @@ public class TLRPC$TL_messageActionChatCreate extends TLRPC$MessageAction {
         int size = this.users.size();
         abstractSerializedData.writeInt32(size);
         for (int i = 0; i < size; i++) {
-            abstractSerializedData.writeInt32(this.users.get(i).intValue());
+            abstractSerializedData.writeInt64(this.users.get(i).longValue());
         }
     }
 }

@@ -3,11 +3,11 @@ package org.telegram.tgnet;
 import java.util.ArrayList;
 
 public class TLRPC$TL_account_registerDevice extends TLObject {
-    public static int constructor = 1754754159;
+    public static int constructor = -326762118;
     public boolean app_sandbox;
     public int flags;
     public boolean no_muted;
-    public ArrayList<Integer> other_uids = new ArrayList<>();
+    public ArrayList<Long> other_uids = new ArrayList<>();
     public byte[] secret;
     public String token;
     public int token_type;
@@ -31,7 +31,7 @@ public class TLRPC$TL_account_registerDevice extends TLObject {
         int size = this.other_uids.size();
         abstractSerializedData.writeInt32(size);
         for (int i2 = 0; i2 < size; i2++) {
-            abstractSerializedData.writeInt32(this.other_uids.get(i2).intValue());
+            abstractSerializedData.writeInt64(this.other_uids.get(i2).longValue());
         }
     }
 }

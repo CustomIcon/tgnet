@@ -12,10 +12,10 @@ public abstract class TLRPC$messages_AllStickers extends TLObject {
 
     public static TLRPC$messages_AllStickers TLdeserialize(AbstractSerializedData abstractSerializedData, int i, boolean z) {
         TLRPC$messages_AllStickers tLRPC$messages_AllStickers;
-        if (i != -395967805) {
-            tLRPC$messages_AllStickers = i != -302170017 ? null : new TLRPC$TL_messages_allStickers();
+        if (i != -843329861) {
+            tLRPC$messages_AllStickers = i != -395967805 ? null : new TLRPC$TL_messages_allStickersNotModified();
         } else {
-            tLRPC$messages_AllStickers = new TLRPC$TL_messages_allStickersNotModified();
+            tLRPC$messages_AllStickers = new TLRPC$TL_messages_allStickers();
         }
         if (tLRPC$messages_AllStickers != null || !z) {
             if (tLRPC$messages_AllStickers != null) {

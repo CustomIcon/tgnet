@@ -1,7 +1,5 @@
 package org.telegram.tgnet;
 
-import org.telegram.messenger.MessagesController;
-
 public class TLRPC$TL_webPage_old extends TLRPC$TL_webPage {
     public static int constructor = -1558273867;
 
@@ -38,10 +36,10 @@ public class TLRPC$TL_webPage_old extends TLRPC$TL_webPage {
         if ((this.flags & 64) != 0) {
             this.embed_height = abstractSerializedData.readInt32(z);
         }
-        if ((this.flags & 128) != 0) {
+        if ((this.flags & ConnectionsManager.RequestFlagNeedQuickAck) != 0) {
             this.duration = abstractSerializedData.readInt32(z);
         }
-        if ((this.flags & MessagesController.UPDATE_MASK_READ_DIALOG_MESSAGE) != 0) {
+        if ((this.flags & 256) != 0) {
             this.author = abstractSerializedData.readString(z);
         }
     }
@@ -80,10 +78,10 @@ public class TLRPC$TL_webPage_old extends TLRPC$TL_webPage {
         if ((this.flags & 64) != 0) {
             abstractSerializedData.writeInt32(this.embed_height);
         }
-        if ((this.flags & 128) != 0) {
+        if ((this.flags & ConnectionsManager.RequestFlagNeedQuickAck) != 0) {
             abstractSerializedData.writeInt32(this.duration);
         }
-        if ((this.flags & MessagesController.UPDATE_MASK_READ_DIALOG_MESSAGE) != 0) {
+        if ((this.flags & 256) != 0) {
             abstractSerializedData.writeString(this.author);
         }
     }

@@ -37,7 +37,7 @@ public class TLRPC$TL_pageTableCell extends TLObject {
             z2 = true;
         }
         this.valign_bottom = z2;
-        if ((readInt32 & 128) != 0) {
+        if ((readInt32 & ConnectionsManager.RequestFlagNeedQuickAck) != 0) {
             this.text = TLRPC$RichText.TLdeserialize(abstractSerializedData, abstractSerializedData.readInt32(z), z);
         }
         if ((this.flags & 2) != 0) {
@@ -62,7 +62,7 @@ public class TLRPC$TL_pageTableCell extends TLObject {
         int i5 = this.valign_bottom ? i4 | 64 : i4 & -65;
         this.flags = i5;
         abstractSerializedData.writeInt32(i5);
-        if ((this.flags & 128) != 0) {
+        if ((this.flags & ConnectionsManager.RequestFlagNeedQuickAck) != 0) {
             this.text.serializeToStream(abstractSerializedData);
         }
         if ((this.flags & 2) != 0) {

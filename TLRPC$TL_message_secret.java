@@ -1,7 +1,6 @@
 package org.telegram.tgnet;
 
 import android.text.TextUtils;
-import org.telegram.messenger.MessagesController;
 
 public class TLRPC$TL_message_secret extends TLRPC$TL_message {
     public static int constructor = 1431655930;
@@ -18,7 +17,7 @@ public class TLRPC$TL_message_secret extends TLRPC$TL_message {
         this.ttl = abstractSerializedData.readInt32(z);
         TLRPC$TL_peerUser tLRPC$TL_peerUser = new TLRPC$TL_peerUser();
         this.from_id = tLRPC$TL_peerUser;
-        tLRPC$TL_peerUser.user_id = abstractSerializedData.readInt32(z);
+        tLRPC$TL_peerUser.user_id = (long) abstractSerializedData.readInt32(z);
         this.peer_id = TLRPC$Peer.TLdeserialize(abstractSerializedData, abstractSerializedData.readInt32(z), z);
         this.date = abstractSerializedData.readInt32(z);
         this.message = abstractSerializedData.readString(z);
@@ -38,7 +37,7 @@ public class TLRPC$TL_message_secret extends TLRPC$TL_message {
                     return;
                 }
             }
-            if ((this.flags & MessagesController.UPDATE_MASK_NEW_MESSAGE) != 0) {
+            if ((this.flags & 2048) != 0) {
                 this.via_bot_name = abstractSerializedData.readString(z);
             }
             if ((this.flags & 8) != 0) {
@@ -46,7 +45,7 @@ public class TLRPC$TL_message_secret extends TLRPC$TL_message {
                 this.reply_to = tLRPC$TL_messageReplyHeader;
                 tLRPC$TL_messageReplyHeader.reply_to_random_id = abstractSerializedData.readInt64(z);
             }
-            if ((this.flags & MessagesController.UPDATE_MASK_REORDER) != 0) {
+            if ((this.flags & 131072) != 0) {
                 this.grouped_id = abstractSerializedData.readInt64(z);
             }
         } else if (z) {
@@ -68,7 +67,7 @@ public class TLRPC$TL_message_secret extends TLRPC$TL_message {
         abstractSerializedData.writeInt32(i4);
         abstractSerializedData.writeInt32(this.id);
         abstractSerializedData.writeInt32(this.ttl);
-        abstractSerializedData.writeInt32(this.from_id.user_id);
+        abstractSerializedData.writeInt32((int) this.from_id.user_id);
         this.peer_id.serializeToStream(abstractSerializedData);
         abstractSerializedData.writeInt32(this.date);
         abstractSerializedData.writeString(this.message);
@@ -79,13 +78,13 @@ public class TLRPC$TL_message_secret extends TLRPC$TL_message {
         for (int i5 = 0; i5 < size; i5++) {
             this.entities.get(i5).serializeToStream(abstractSerializedData);
         }
-        if ((this.flags & MessagesController.UPDATE_MASK_NEW_MESSAGE) != 0) {
+        if ((this.flags & 2048) != 0) {
             abstractSerializedData.writeString(this.via_bot_name);
         }
         if ((this.flags & 8) != 0) {
             abstractSerializedData.writeInt64(this.reply_to.reply_to_random_id);
         }
-        if ((this.flags & MessagesController.UPDATE_MASK_REORDER) != 0) {
+        if ((this.flags & 131072) != 0) {
             abstractSerializedData.writeInt64(this.grouped_id);
         }
         writeAttachPath(abstractSerializedData);

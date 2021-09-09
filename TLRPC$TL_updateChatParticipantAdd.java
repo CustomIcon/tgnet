@@ -1,18 +1,18 @@
 package org.telegram.tgnet;
 
 public class TLRPC$TL_updateChatParticipantAdd extends TLRPC$Update {
-    public static int constructor = -364179876;
-    public int chat_id;
+    public static int constructor = 1037718609;
+    public long chat_id;
     public int date;
-    public int inviter_id;
-    public int user_id;
+    public long inviter_id;
+    public long user_id;
     public int version;
 
     @Override // org.telegram.tgnet.TLObject
     public void readParams(AbstractSerializedData abstractSerializedData, boolean z) {
-        this.chat_id = abstractSerializedData.readInt32(z);
-        this.user_id = abstractSerializedData.readInt32(z);
-        this.inviter_id = abstractSerializedData.readInt32(z);
+        this.chat_id = abstractSerializedData.readInt64(z);
+        this.user_id = abstractSerializedData.readInt64(z);
+        this.inviter_id = abstractSerializedData.readInt64(z);
         this.date = abstractSerializedData.readInt32(z);
         this.version = abstractSerializedData.readInt32(z);
     }
@@ -20,9 +20,9 @@ public class TLRPC$TL_updateChatParticipantAdd extends TLRPC$Update {
     @Override // org.telegram.tgnet.TLObject
     public void serializeToStream(AbstractSerializedData abstractSerializedData) {
         abstractSerializedData.writeInt32(constructor);
-        abstractSerializedData.writeInt32(this.chat_id);
-        abstractSerializedData.writeInt32(this.user_id);
-        abstractSerializedData.writeInt32(this.inviter_id);
+        abstractSerializedData.writeInt64(this.chat_id);
+        abstractSerializedData.writeInt64(this.user_id);
+        abstractSerializedData.writeInt64(this.inviter_id);
         abstractSerializedData.writeInt32(this.date);
         abstractSerializedData.writeInt32(this.version);
     }

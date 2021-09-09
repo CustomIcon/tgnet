@@ -3,8 +3,8 @@ package org.telegram.tgnet;
 import java.util.ArrayList;
 
 public class TLRPC$TL_updatePinnedChannelMessages extends TLRPC$Update {
-    public static int constructor = -2054649973;
-    public int channel_id;
+    public static int constructor = 1538885128;
+    public long channel_id;
     public int flags;
     public ArrayList<Integer> messages = new ArrayList<>();
     public boolean pinned;
@@ -16,7 +16,7 @@ public class TLRPC$TL_updatePinnedChannelMessages extends TLRPC$Update {
         int readInt32 = abstractSerializedData.readInt32(z);
         this.flags = readInt32;
         this.pinned = (readInt32 & 1) != 0;
-        this.channel_id = abstractSerializedData.readInt32(z);
+        this.channel_id = abstractSerializedData.readInt64(z);
         int readInt322 = abstractSerializedData.readInt32(z);
         if (readInt322 == 481674261) {
             int readInt323 = abstractSerializedData.readInt32(z);
@@ -36,7 +36,7 @@ public class TLRPC$TL_updatePinnedChannelMessages extends TLRPC$Update {
         int i = this.pinned ? this.flags | 1 : this.flags & -2;
         this.flags = i;
         abstractSerializedData.writeInt32(i);
-        abstractSerializedData.writeInt32(this.channel_id);
+        abstractSerializedData.writeInt64(this.channel_id);
         abstractSerializedData.writeInt32(481674261);
         int size = this.messages.size();
         abstractSerializedData.writeInt32(size);

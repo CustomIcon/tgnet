@@ -1,7 +1,5 @@
 package org.telegram.tgnet;
 
-import org.telegram.messenger.MessagesController;
-
 public class TLRPC$TL_groupCall extends TLRPC$GroupCall {
     public static int constructor = -711498484;
 
@@ -13,9 +11,9 @@ public class TLRPC$TL_groupCall extends TLRPC$GroupCall {
         this.join_muted = (readInt32 & 2) != 0;
         this.can_change_join_muted = (readInt32 & 4) != 0;
         this.join_date_asc = (readInt32 & 64) != 0;
-        this.schedule_start_subscribed = (readInt32 & MessagesController.UPDATE_MASK_READ_DIALOG_MESSAGE) != 0;
-        this.can_start_video = (readInt32 & MessagesController.UPDATE_MASK_SELECT_DIALOG) != 0;
-        if ((readInt32 & MessagesController.UPDATE_MASK_NEW_MESSAGE) == 0) {
+        this.schedule_start_subscribed = (readInt32 & 256) != 0;
+        this.can_start_video = (readInt32 & 512) != 0;
+        if ((readInt32 & 2048) == 0) {
             z2 = false;
         }
         this.record_video_active = z2;
@@ -31,10 +29,10 @@ public class TLRPC$TL_groupCall extends TLRPC$GroupCall {
         if ((this.flags & 32) != 0) {
             this.record_start_date = abstractSerializedData.readInt32(z);
         }
-        if ((this.flags & 128) != 0) {
+        if ((this.flags & ConnectionsManager.RequestFlagNeedQuickAck) != 0) {
             this.schedule_date = abstractSerializedData.readInt32(z);
         }
-        if ((this.flags & MessagesController.UPDATE_MASK_PHONE) != 0) {
+        if ((this.flags & 1024) != 0) {
             this.unmuted_video_count = abstractSerializedData.readInt32(z);
         }
         this.unmuted_video_limit = abstractSerializedData.readInt32(z);
@@ -50,11 +48,11 @@ public class TLRPC$TL_groupCall extends TLRPC$GroupCall {
         this.flags = i2;
         int i3 = this.join_date_asc ? i2 | 64 : i2 & -65;
         this.flags = i3;
-        int i4 = this.schedule_start_subscribed ? i3 | MessagesController.UPDATE_MASK_READ_DIALOG_MESSAGE : i3 & -257;
+        int i4 = this.schedule_start_subscribed ? i3 | 256 : i3 & -257;
         this.flags = i4;
-        int i5 = this.can_start_video ? i4 | MessagesController.UPDATE_MASK_SELECT_DIALOG : i4 & -513;
+        int i5 = this.can_start_video ? i4 | 512 : i4 & -513;
         this.flags = i5;
-        int i6 = this.record_video_active ? i5 | MessagesController.UPDATE_MASK_NEW_MESSAGE : i5 & -2049;
+        int i6 = this.record_video_active ? i5 | 2048 : i5 & -2049;
         this.flags = i6;
         abstractSerializedData.writeInt32(i6);
         abstractSerializedData.writeInt64(this.id);
@@ -69,10 +67,10 @@ public class TLRPC$TL_groupCall extends TLRPC$GroupCall {
         if ((this.flags & 32) != 0) {
             abstractSerializedData.writeInt32(this.record_start_date);
         }
-        if ((this.flags & 128) != 0) {
+        if ((this.flags & ConnectionsManager.RequestFlagNeedQuickAck) != 0) {
             abstractSerializedData.writeInt32(this.schedule_date);
         }
-        if ((this.flags & MessagesController.UPDATE_MASK_PHONE) != 0) {
+        if ((this.flags & 1024) != 0) {
             abstractSerializedData.writeInt32(this.unmuted_video_count);
         }
         abstractSerializedData.writeInt32(this.unmuted_video_limit);

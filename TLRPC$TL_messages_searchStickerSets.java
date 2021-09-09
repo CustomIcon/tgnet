@@ -1,10 +1,10 @@
 package org.telegram.tgnet;
 
 public class TLRPC$TL_messages_searchStickerSets extends TLObject {
-    public static int constructor = -1028140917;
+    public static int constructor = 896555914;
     public boolean exclude_featured;
     public int flags;
-    public int hash;
+    public long hash;
     public String q;
 
     @Override // org.telegram.tgnet.TLObject
@@ -19,6 +19,6 @@ public class TLRPC$TL_messages_searchStickerSets extends TLObject {
         this.flags = i;
         abstractSerializedData.writeInt32(i);
         abstractSerializedData.writeString(this.q);
-        abstractSerializedData.writeInt32(this.hash);
+        abstractSerializedData.writeInt64(this.hash);
     }
 }

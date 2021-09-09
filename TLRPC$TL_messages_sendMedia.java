@@ -1,7 +1,6 @@
 package org.telegram.tgnet;
 
 import java.util.ArrayList;
-import org.telegram.messenger.MessagesController;
 
 public class TLRPC$TL_messages_sendMedia extends TLObject {
     public static int constructor = 881978281;
@@ -30,7 +29,7 @@ public class TLRPC$TL_messages_sendMedia extends TLObject {
         this.flags = i;
         int i2 = this.background ? i | 64 : i & -65;
         this.flags = i2;
-        int i3 = this.clear_draft ? i2 | 128 : i2 & -129;
+        int i3 = this.clear_draft ? i2 | ConnectionsManager.RequestFlagNeedQuickAck : i2 & -129;
         this.flags = i3;
         abstractSerializedData.writeInt32(i3);
         this.peer.serializeToStream(abstractSerializedData);
@@ -51,7 +50,7 @@ public class TLRPC$TL_messages_sendMedia extends TLObject {
                 this.entities.get(i4).serializeToStream(abstractSerializedData);
             }
         }
-        if ((this.flags & MessagesController.UPDATE_MASK_PHONE) != 0) {
+        if ((this.flags & 1024) != 0) {
             abstractSerializedData.writeInt32(this.schedule_date);
         }
     }

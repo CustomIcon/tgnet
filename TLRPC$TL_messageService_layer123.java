@@ -1,7 +1,5 @@
 package org.telegram.tgnet;
 
-import org.telegram.messenger.MessagesController;
-
 public class TLRPC$TL_messageService_layer123 extends TLRPC$TL_messageService {
     public static int constructor = 678405636;
 
@@ -13,14 +11,14 @@ public class TLRPC$TL_messageService_layer123 extends TLRPC$TL_messageService {
         this.out = (readInt32 & 2) != 0;
         this.mentioned = (readInt32 & 16) != 0;
         this.media_unread = (readInt32 & 32) != 0;
-        this.silent = (readInt32 & MessagesController.UPDATE_MASK_CHAT) != 0;
+        this.silent = (readInt32 & 8192) != 0;
         this.post = (readInt32 & 16384) != 0;
         if ((readInt32 & 524288) == 0) {
             z2 = false;
         }
         this.legacy = z2;
         this.id = abstractSerializedData.readInt32(z);
-        if ((this.flags & MessagesController.UPDATE_MASK_READ_DIALOG_MESSAGE) != 0) {
+        if ((this.flags & 256) != 0) {
             this.from_id = TLRPC$Peer.TLdeserialize(abstractSerializedData, abstractSerializedData.readInt32(z), z);
         }
         this.peer_id = TLRPC$Peer.TLdeserialize(abstractSerializedData, abstractSerializedData.readInt32(z), z);
@@ -40,7 +38,7 @@ public class TLRPC$TL_messageService_layer123 extends TLRPC$TL_messageService {
         this.flags = i2;
         int i3 = this.media_unread ? i2 | 32 : i2 & -33;
         this.flags = i3;
-        int i4 = this.silent ? i3 | MessagesController.UPDATE_MASK_CHAT : i3 & -8193;
+        int i4 = this.silent ? i3 | 8192 : i3 & -8193;
         this.flags = i4;
         int i5 = this.post ? i4 | 16384 : i4 & -16385;
         this.flags = i5;
@@ -48,7 +46,7 @@ public class TLRPC$TL_messageService_layer123 extends TLRPC$TL_messageService {
         this.flags = i6;
         abstractSerializedData.writeInt32(i6);
         abstractSerializedData.writeInt32(this.id);
-        if ((this.flags & MessagesController.UPDATE_MASK_READ_DIALOG_MESSAGE) != 0) {
+        if ((this.flags & 256) != 0) {
             this.from_id.serializeToStream(abstractSerializedData);
         }
         this.peer_id.serializeToStream(abstractSerializedData);

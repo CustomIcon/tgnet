@@ -1,7 +1,5 @@
 package org.telegram.tgnet;
 
-import org.telegram.messenger.MessagesController;
-
 public class TLRPC$TL_userFull_layer131 extends TLRPC$TL_userFull {
     public static int constructor = 328899191;
 
@@ -13,9 +11,9 @@ public class TLRPC$TL_userFull_layer131 extends TLRPC$TL_userFull {
         this.blocked = (readInt32 & 1) != 0;
         this.phone_calls_available = (readInt32 & 16) != 0;
         this.phone_calls_private = (readInt32 & 32) != 0;
-        this.can_pin_message = (readInt32 & 128) != 0;
-        this.has_scheduled = (readInt32 & MessagesController.UPDATE_MASK_SEND_STATE) != 0;
-        if ((readInt32 & MessagesController.UPDATE_MASK_CHAT) != 0) {
+        this.can_pin_message = (readInt32 & ConnectionsManager.RequestFlagNeedQuickAck) != 0;
+        this.has_scheduled = (readInt32 & 4096) != 0;
+        if ((readInt32 & 8192) != 0) {
             z2 = true;
         }
         this.video_calls_available = z2;
@@ -35,7 +33,7 @@ public class TLRPC$TL_userFull_layer131 extends TLRPC$TL_userFull {
             this.pinned_msg_id = abstractSerializedData.readInt32(z);
         }
         this.common_chats_count = abstractSerializedData.readInt32(z);
-        if ((this.flags & MessagesController.UPDATE_MASK_NEW_MESSAGE) != 0) {
+        if ((this.flags & 2048) != 0) {
             this.folder_id = abstractSerializedData.readInt32(z);
         }
         if ((this.flags & 16384) != 0) {
@@ -52,11 +50,11 @@ public class TLRPC$TL_userFull_layer131 extends TLRPC$TL_userFull {
         this.flags = i2;
         int i3 = this.phone_calls_private ? i2 | 32 : i2 & -33;
         this.flags = i3;
-        int i4 = this.can_pin_message ? i3 | 128 : i3 & -129;
+        int i4 = this.can_pin_message ? i3 | ConnectionsManager.RequestFlagNeedQuickAck : i3 & -129;
         this.flags = i4;
-        int i5 = this.has_scheduled ? i4 | MessagesController.UPDATE_MASK_SEND_STATE : i4 & -4097;
+        int i5 = this.has_scheduled ? i4 | 4096 : i4 & -4097;
         this.flags = i5;
-        int i6 = this.video_calls_available ? i5 | MessagesController.UPDATE_MASK_CHAT : i5 & -8193;
+        int i6 = this.video_calls_available ? i5 | 8192 : i5 & -8193;
         this.flags = i6;
         abstractSerializedData.writeInt32(i6);
         this.user.serializeToStream(abstractSerializedData);
@@ -75,7 +73,7 @@ public class TLRPC$TL_userFull_layer131 extends TLRPC$TL_userFull {
             abstractSerializedData.writeInt32(this.pinned_msg_id);
         }
         abstractSerializedData.writeInt32(this.common_chats_count);
-        if ((this.flags & MessagesController.UPDATE_MASK_NEW_MESSAGE) != 0) {
+        if ((this.flags & 2048) != 0) {
             abstractSerializedData.writeInt32(this.folder_id);
         }
         if ((this.flags & 16384) != 0) {

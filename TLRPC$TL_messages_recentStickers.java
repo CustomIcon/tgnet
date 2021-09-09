@@ -3,15 +3,15 @@ package org.telegram.tgnet;
 import java.util.ArrayList;
 
 public class TLRPC$TL_messages_recentStickers extends TLRPC$messages_RecentStickers {
-    public static int constructor = 586395571;
+    public static int constructor = -1999405994;
     public ArrayList<Integer> dates = new ArrayList<>();
-    public int hash;
+    public long hash;
     public ArrayList<TLRPC$TL_stickerPack> packs = new ArrayList<>();
     public ArrayList<TLRPC$Document> stickers = new ArrayList<>();
 
     @Override // org.telegram.tgnet.TLObject
     public void readParams(AbstractSerializedData abstractSerializedData, boolean z) {
-        this.hash = abstractSerializedData.readInt32(z);
+        this.hash = abstractSerializedData.readInt64(z);
         int readInt32 = abstractSerializedData.readInt32(z);
         if (readInt32 == 481674261) {
             int readInt322 = abstractSerializedData.readInt32(z);
@@ -54,7 +54,7 @@ public class TLRPC$TL_messages_recentStickers extends TLRPC$messages_RecentStick
     @Override // org.telegram.tgnet.TLObject
     public void serializeToStream(AbstractSerializedData abstractSerializedData) {
         abstractSerializedData.writeInt32(constructor);
-        abstractSerializedData.writeInt32(this.hash);
+        abstractSerializedData.writeInt64(this.hash);
         abstractSerializedData.writeInt32(481674261);
         int size = this.packs.size();
         abstractSerializedData.writeInt32(size);

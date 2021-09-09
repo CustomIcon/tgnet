@@ -1,7 +1,5 @@
 package org.telegram.tgnet;
 
-import org.telegram.messenger.MessagesController;
-
 public class TLRPC$TL_userFull_layer101 extends TLRPC$TL_userFull {
     public static int constructor = 1951750604;
 
@@ -13,7 +11,7 @@ public class TLRPC$TL_userFull_layer101 extends TLRPC$TL_userFull {
         this.blocked = (readInt32 & 1) != 0;
         this.phone_calls_available = (readInt32 & 16) != 0;
         this.phone_calls_private = (readInt32 & 32) != 0;
-        if ((readInt32 & 128) != 0) {
+        if ((readInt32 & ConnectionsManager.RequestFlagNeedQuickAck) != 0) {
             z2 = true;
         }
         this.can_pin_message = z2;
@@ -33,7 +31,7 @@ public class TLRPC$TL_userFull_layer101 extends TLRPC$TL_userFull {
             this.pinned_msg_id = abstractSerializedData.readInt32(z);
         }
         this.common_chats_count = abstractSerializedData.readInt32(z);
-        if ((this.flags & MessagesController.UPDATE_MASK_NEW_MESSAGE) != 0) {
+        if ((this.flags & 2048) != 0) {
             this.folder_id = abstractSerializedData.readInt32(z);
         }
     }
@@ -47,7 +45,7 @@ public class TLRPC$TL_userFull_layer101 extends TLRPC$TL_userFull {
         this.flags = i2;
         int i3 = this.phone_calls_private ? i2 | 32 : i2 & -33;
         this.flags = i3;
-        int i4 = this.can_pin_message ? i3 | 128 : i3 & -129;
+        int i4 = this.can_pin_message ? i3 | ConnectionsManager.RequestFlagNeedQuickAck : i3 & -129;
         this.flags = i4;
         abstractSerializedData.writeInt32(i4);
         this.user.serializeToStream(abstractSerializedData);
@@ -66,7 +64,7 @@ public class TLRPC$TL_userFull_layer101 extends TLRPC$TL_userFull {
             abstractSerializedData.writeInt32(this.pinned_msg_id);
         }
         abstractSerializedData.writeInt32(this.common_chats_count);
-        if ((this.flags & MessagesController.UPDATE_MASK_NEW_MESSAGE) != 0) {
+        if ((this.flags & 2048) != 0) {
             abstractSerializedData.writeInt32(this.folder_id);
         }
     }

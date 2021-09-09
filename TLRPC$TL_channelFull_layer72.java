@@ -1,7 +1,5 @@
 package org.telegram.tgnet;
 
-import org.telegram.messenger.MessagesController;
-
 public class TLRPC$TL_channelFull_layer72 extends TLRPC$TL_channelFull {
     public static int constructor = 1991201921;
 
@@ -11,9 +9,9 @@ public class TLRPC$TL_channelFull_layer72 extends TLRPC$TL_channelFull {
         this.flags = readInt32;
         this.can_view_participants = (readInt32 & 8) != 0;
         this.can_set_username = (readInt32 & 64) != 0;
-        this.can_set_stickers = (readInt32 & 128) != 0;
-        this.hidden_prehistory = (readInt32 & MessagesController.UPDATE_MASK_PHONE) != 0;
-        this.id = abstractSerializedData.readInt32(z);
+        this.can_set_stickers = (readInt32 & ConnectionsManager.RequestFlagNeedQuickAck) != 0;
+        this.hidden_prehistory = (readInt32 & 1024) != 0;
+        this.id = (long) abstractSerializedData.readInt32(z);
         this.about = abstractSerializedData.readString(z);
         if ((this.flags & 1) != 0) {
             this.participants_count = abstractSerializedData.readInt32(z);
@@ -48,7 +46,7 @@ public class TLRPC$TL_channelFull_layer72 extends TLRPC$TL_channelFull {
                 }
             }
             if ((this.flags & 16) != 0) {
-                this.migrated_from_chat_id = abstractSerializedData.readInt32(z);
+                this.migrated_from_chat_id = (long) abstractSerializedData.readInt32(z);
             }
             if ((this.flags & 16) != 0) {
                 this.migrated_from_max_id = abstractSerializedData.readInt32(z);
@@ -56,10 +54,10 @@ public class TLRPC$TL_channelFull_layer72 extends TLRPC$TL_channelFull {
             if ((this.flags & 32) != 0) {
                 this.pinned_msg_id = abstractSerializedData.readInt32(z);
             }
-            if ((this.flags & MessagesController.UPDATE_MASK_READ_DIALOG_MESSAGE) != 0) {
+            if ((this.flags & 256) != 0) {
                 this.stickerset = TLRPC$StickerSet.TLdeserialize(abstractSerializedData, abstractSerializedData.readInt32(z), z);
             }
-            if ((this.flags & MessagesController.UPDATE_MASK_SELECT_DIALOG) != 0) {
+            if ((this.flags & 512) != 0) {
                 this.available_min_id = abstractSerializedData.readInt32(z);
             }
         } else if (z) {
@@ -74,12 +72,12 @@ public class TLRPC$TL_channelFull_layer72 extends TLRPC$TL_channelFull {
         this.flags = i;
         int i2 = this.can_set_username ? i | 64 : i & -65;
         this.flags = i2;
-        int i3 = this.can_set_stickers ? i2 | 128 : i2 & -129;
+        int i3 = this.can_set_stickers ? i2 | ConnectionsManager.RequestFlagNeedQuickAck : i2 & -129;
         this.flags = i3;
-        int i4 = this.hidden_prehistory ? i3 | MessagesController.UPDATE_MASK_PHONE : i3 & -1025;
+        int i4 = this.hidden_prehistory ? i3 | 1024 : i3 & -1025;
         this.flags = i4;
         abstractSerializedData.writeInt32(i4);
-        abstractSerializedData.writeInt32(this.id);
+        abstractSerializedData.writeInt32((int) this.id);
         abstractSerializedData.writeString(this.about);
         if ((this.flags & 1) != 0) {
             abstractSerializedData.writeInt32(this.participants_count);
@@ -106,7 +104,7 @@ public class TLRPC$TL_channelFull_layer72 extends TLRPC$TL_channelFull {
             this.bot_info.get(i5).serializeToStream(abstractSerializedData);
         }
         if ((this.flags & 16) != 0) {
-            abstractSerializedData.writeInt32(this.migrated_from_chat_id);
+            abstractSerializedData.writeInt32((int) this.migrated_from_chat_id);
         }
         if ((this.flags & 16) != 0) {
             abstractSerializedData.writeInt32(this.migrated_from_max_id);
@@ -114,10 +112,10 @@ public class TLRPC$TL_channelFull_layer72 extends TLRPC$TL_channelFull {
         if ((this.flags & 32) != 0) {
             abstractSerializedData.writeInt32(this.pinned_msg_id);
         }
-        if ((this.flags & MessagesController.UPDATE_MASK_READ_DIALOG_MESSAGE) != 0) {
+        if ((this.flags & 256) != 0) {
             this.stickerset.serializeToStream(abstractSerializedData);
         }
-        if ((this.flags & MessagesController.UPDATE_MASK_SELECT_DIALOG) != 0) {
+        if ((this.flags & 512) != 0) {
             abstractSerializedData.writeInt32(this.available_min_id);
         }
     }

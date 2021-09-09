@@ -1,9 +1,9 @@
 package org.telegram.tgnet;
 
 public class TLRPC$TL_messages_getCommonChats extends TLObject {
-    public static int constructor = 218777796;
+    public static int constructor = -468934396;
     public int limit;
-    public int max_id;
+    public long max_id;
     public TLRPC$InputUser user_id;
 
     @Override // org.telegram.tgnet.TLObject
@@ -15,7 +15,7 @@ public class TLRPC$TL_messages_getCommonChats extends TLObject {
     public void serializeToStream(AbstractSerializedData abstractSerializedData) {
         abstractSerializedData.writeInt32(constructor);
         this.user_id.serializeToStream(abstractSerializedData);
-        abstractSerializedData.writeInt32(this.max_id);
+        abstractSerializedData.writeInt64(this.max_id);
         abstractSerializedData.writeInt32(this.limit);
     }
 }

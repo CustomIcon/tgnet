@@ -1,8 +1,9 @@
 package org.telegram.tgnet;
 
 public class TLRPC$TL_messages_getHistory extends TLObject {
-    public static int constructor = -1347868602;
+    public static int constructor = 1143203525;
     public int add_offset;
+    public long hash;
     public int limit;
     public int max_id;
     public int min_id;
@@ -25,5 +26,6 @@ public class TLRPC$TL_messages_getHistory extends TLObject {
         abstractSerializedData.writeInt32(this.limit);
         abstractSerializedData.writeInt32(this.max_id);
         abstractSerializedData.writeInt32(this.min_id);
+        abstractSerializedData.writeInt64(this.hash);
     }
 }

@@ -1,7 +1,5 @@
 package org.telegram.tgnet;
 
-import org.telegram.messenger.MessagesController;
-
 public class TLRPC$TL_channel_layer48 extends TLRPC$TL_channel {
     public static int constructor = 1260090630;
 
@@ -15,14 +13,14 @@ public class TLRPC$TL_channel_layer48 extends TLRPC$TL_channel {
         this.left = (readInt32 & 4) != 0;
         this.moderator = (readInt32 & 16) != 0;
         this.broadcast = (readInt32 & 32) != 0;
-        this.verified = (readInt32 & 128) != 0;
-        this.megagroup = (readInt32 & MessagesController.UPDATE_MASK_READ_DIALOG_MESSAGE) != 0;
-        this.restricted = (readInt32 & MessagesController.UPDATE_MASK_SELECT_DIALOG) != 0;
-        if ((readInt32 & MessagesController.UPDATE_MASK_NEW_MESSAGE) != 0) {
+        this.verified = (readInt32 & ConnectionsManager.RequestFlagNeedQuickAck) != 0;
+        this.megagroup = (readInt32 & 256) != 0;
+        this.restricted = (readInt32 & 512) != 0;
+        if ((readInt32 & 2048) != 0) {
             z2 = true;
         }
         this.signatures = z2;
-        this.id = abstractSerializedData.readInt32(z);
+        this.id = (long) abstractSerializedData.readInt32(z);
         this.access_hash = abstractSerializedData.readInt64(z);
         this.title = abstractSerializedData.readString(z);
         if ((this.flags & 64) != 0) {
@@ -31,7 +29,7 @@ public class TLRPC$TL_channel_layer48 extends TLRPC$TL_channel {
         this.photo = TLRPC$ChatPhoto.TLdeserialize(abstractSerializedData, abstractSerializedData.readInt32(z), z);
         this.date = abstractSerializedData.readInt32(z);
         this.version = abstractSerializedData.readInt32(z);
-        if ((this.flags & MessagesController.UPDATE_MASK_SELECT_DIALOG) != 0) {
+        if ((this.flags & 512) != 0) {
             abstractSerializedData.readString(z);
         }
     }
@@ -49,16 +47,16 @@ public class TLRPC$TL_channel_layer48 extends TLRPC$TL_channel {
         this.flags = i4;
         int i5 = this.broadcast ? i4 | 32 : i4 & -33;
         this.flags = i5;
-        int i6 = this.verified ? i5 | 128 : i5 & -129;
+        int i6 = this.verified ? i5 | ConnectionsManager.RequestFlagNeedQuickAck : i5 & -129;
         this.flags = i6;
-        int i7 = this.megagroup ? i6 | MessagesController.UPDATE_MASK_READ_DIALOG_MESSAGE : i6 & -257;
+        int i7 = this.megagroup ? i6 | 256 : i6 & -257;
         this.flags = i7;
-        int i8 = this.restricted ? i7 | MessagesController.UPDATE_MASK_SELECT_DIALOG : i7 & -513;
+        int i8 = this.restricted ? i7 | 512 : i7 & -513;
         this.flags = i8;
-        int i9 = this.signatures ? i8 | MessagesController.UPDATE_MASK_NEW_MESSAGE : i8 & -2049;
+        int i9 = this.signatures ? i8 | 2048 : i8 & -2049;
         this.flags = i9;
         abstractSerializedData.writeInt32(i9);
-        abstractSerializedData.writeInt32(this.id);
+        abstractSerializedData.writeInt32((int) this.id);
         abstractSerializedData.writeInt64(this.access_hash);
         abstractSerializedData.writeString(this.title);
         if ((this.flags & 64) != 0) {
@@ -67,7 +65,7 @@ public class TLRPC$TL_channel_layer48 extends TLRPC$TL_channel {
         this.photo.serializeToStream(abstractSerializedData);
         abstractSerializedData.writeInt32(this.date);
         abstractSerializedData.writeInt32(this.version);
-        if ((this.flags & MessagesController.UPDATE_MASK_SELECT_DIALOG) != 0) {
+        if ((this.flags & 512) != 0) {
             abstractSerializedData.writeString("");
         }
     }

@@ -3,15 +3,15 @@ package org.telegram.tgnet;
 import java.util.ArrayList;
 
 public class TLRPC$TL_updateBotCommands extends TLRPC$Update {
-    public static int constructor = -813823885;
-    public int bot_id;
+    public static int constructor = 1299263278;
+    public long bot_id;
     public ArrayList<TLRPC$TL_botCommand> commands = new ArrayList<>();
     public TLRPC$Peer peer;
 
     @Override // org.telegram.tgnet.TLObject
     public void readParams(AbstractSerializedData abstractSerializedData, boolean z) {
         this.peer = TLRPC$Peer.TLdeserialize(abstractSerializedData, abstractSerializedData.readInt32(z), z);
-        this.bot_id = abstractSerializedData.readInt32(z);
+        this.bot_id = abstractSerializedData.readInt64(z);
         int readInt32 = abstractSerializedData.readInt32(z);
         if (readInt32 == 481674261) {
             int readInt322 = abstractSerializedData.readInt32(z);
@@ -32,7 +32,7 @@ public class TLRPC$TL_updateBotCommands extends TLRPC$Update {
     public void serializeToStream(AbstractSerializedData abstractSerializedData) {
         abstractSerializedData.writeInt32(constructor);
         this.peer.serializeToStream(abstractSerializedData);
-        abstractSerializedData.writeInt32(this.bot_id);
+        abstractSerializedData.writeInt64(this.bot_id);
         abstractSerializedData.writeInt32(481674261);
         int size = this.commands.size();
         abstractSerializedData.writeInt32(size);

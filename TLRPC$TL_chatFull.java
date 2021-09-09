@@ -1,24 +1,22 @@
 package org.telegram.tgnet;
 
-import org.telegram.messenger.MessagesController;
-
 public class TLRPC$TL_chatFull extends TLRPC$ChatFull {
-    public static int constructor = 1235264985;
+    public static int constructor = 1304281241;
 
     @Override // org.telegram.tgnet.TLObject
     public void readParams(AbstractSerializedData abstractSerializedData, boolean z) {
         int readInt32 = abstractSerializedData.readInt32(z);
         this.flags = readInt32;
-        this.can_set_username = (readInt32 & 128) != 0;
-        this.has_scheduled = (readInt32 & MessagesController.UPDATE_MASK_READ_DIALOG_MESSAGE) != 0;
-        this.id = abstractSerializedData.readInt32(z);
+        this.can_set_username = (readInt32 & ConnectionsManager.RequestFlagNeedQuickAck) != 0;
+        this.has_scheduled = (readInt32 & 256) != 0;
+        this.id = abstractSerializedData.readInt64(z);
         this.about = abstractSerializedData.readString(z);
         this.participants = TLRPC$ChatParticipants.TLdeserialize(abstractSerializedData, abstractSerializedData.readInt32(z), z);
         if ((this.flags & 4) != 0) {
             this.chat_photo = TLRPC$Photo.TLdeserialize(abstractSerializedData, abstractSerializedData.readInt32(z), z);
         }
         this.notify_settings = TLRPC$PeerNotifySettings.TLdeserialize(abstractSerializedData, abstractSerializedData.readInt32(z), z);
-        if ((this.flags & MessagesController.UPDATE_MASK_CHAT) != 0) {
+        if ((this.flags & 8192) != 0) {
             this.exported_invite = (TLRPC$TL_chatInviteExported) TLRPC$ExportedChatInvite.TLdeserialize(abstractSerializedData, abstractSerializedData.readInt32(z), z);
         }
         if ((this.flags & 8) != 0) {
@@ -42,19 +40,19 @@ public class TLRPC$TL_chatFull extends TLRPC$ChatFull {
         if ((this.flags & 64) != 0) {
             this.pinned_msg_id = abstractSerializedData.readInt32(z);
         }
-        if ((this.flags & MessagesController.UPDATE_MASK_NEW_MESSAGE) != 0) {
+        if ((this.flags & 2048) != 0) {
             this.folder_id = abstractSerializedData.readInt32(z);
         }
-        if ((this.flags & MessagesController.UPDATE_MASK_SEND_STATE) != 0) {
+        if ((this.flags & 4096) != 0) {
             this.call = TLRPC$TL_inputGroupCall.TLdeserialize(abstractSerializedData, abstractSerializedData.readInt32(z), z);
         }
         if ((this.flags & 16384) != 0) {
             this.ttl_period = abstractSerializedData.readInt32(z);
         }
-        if ((this.flags & MessagesController.UPDATE_MASK_MESSAGE_TEXT) != 0) {
+        if ((this.flags & 32768) != 0) {
             this.groupcall_default_join_as = TLRPC$Peer.TLdeserialize(abstractSerializedData, abstractSerializedData.readInt32(z), z);
         }
-        if ((this.flags & MessagesController.UPDATE_MASK_CHECK) != 0) {
+        if ((this.flags & 65536) != 0) {
             this.theme_emoticon = abstractSerializedData.readString(z);
         }
     }
@@ -62,19 +60,19 @@ public class TLRPC$TL_chatFull extends TLRPC$ChatFull {
     @Override // org.telegram.tgnet.TLObject
     public void serializeToStream(AbstractSerializedData abstractSerializedData) {
         abstractSerializedData.writeInt32(constructor);
-        int i = this.can_set_username ? this.flags | 128 : this.flags & -129;
+        int i = this.can_set_username ? this.flags | ConnectionsManager.RequestFlagNeedQuickAck : this.flags & -129;
         this.flags = i;
-        int i2 = this.has_scheduled ? i | MessagesController.UPDATE_MASK_READ_DIALOG_MESSAGE : i & -257;
+        int i2 = this.has_scheduled ? i | 256 : i & -257;
         this.flags = i2;
         abstractSerializedData.writeInt32(i2);
-        abstractSerializedData.writeInt32(this.id);
+        abstractSerializedData.writeInt64(this.id);
         abstractSerializedData.writeString(this.about);
         this.participants.serializeToStream(abstractSerializedData);
         if ((this.flags & 4) != 0) {
             this.chat_photo.serializeToStream(abstractSerializedData);
         }
         this.notify_settings.serializeToStream(abstractSerializedData);
-        if ((this.flags & MessagesController.UPDATE_MASK_CHAT) != 0) {
+        if ((this.flags & 8192) != 0) {
             this.exported_invite.serializeToStream(abstractSerializedData);
         }
         if ((this.flags & 8) != 0) {
@@ -88,19 +86,19 @@ public class TLRPC$TL_chatFull extends TLRPC$ChatFull {
         if ((this.flags & 64) != 0) {
             abstractSerializedData.writeInt32(this.pinned_msg_id);
         }
-        if ((this.flags & MessagesController.UPDATE_MASK_NEW_MESSAGE) != 0) {
+        if ((this.flags & 2048) != 0) {
             abstractSerializedData.writeInt32(this.folder_id);
         }
-        if ((this.flags & MessagesController.UPDATE_MASK_SEND_STATE) != 0) {
+        if ((this.flags & 4096) != 0) {
             this.call.serializeToStream(abstractSerializedData);
         }
         if ((this.flags & 16384) != 0) {
             abstractSerializedData.writeInt32(this.ttl_period);
         }
-        if ((this.flags & MessagesController.UPDATE_MASK_MESSAGE_TEXT) != 0) {
+        if ((this.flags & 32768) != 0) {
             this.groupcall_default_join_as.serializeToStream(abstractSerializedData);
         }
-        if ((this.flags & MessagesController.UPDATE_MASK_CHECK) != 0) {
+        if ((this.flags & 65536) != 0) {
             abstractSerializedData.writeString(this.theme_emoticon);
         }
     }

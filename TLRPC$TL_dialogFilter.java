@@ -1,7 +1,6 @@
 package org.telegram.tgnet;
 
 import java.util.ArrayList;
-import org.telegram.messenger.MessagesController;
 
 public class TLRPC$TL_dialogFilter extends TLObject {
     public static int constructor = 1949890536;
@@ -42,9 +41,9 @@ public class TLRPC$TL_dialogFilter extends TLObject {
         this.groups = (readInt32 & 4) != 0;
         this.broadcasts = (readInt32 & 8) != 0;
         this.bots = (readInt32 & 16) != 0;
-        this.exclude_muted = (readInt32 & MessagesController.UPDATE_MASK_NEW_MESSAGE) != 0;
-        this.exclude_read = (readInt32 & MessagesController.UPDATE_MASK_SEND_STATE) != 0;
-        this.exclude_archived = (readInt32 & MessagesController.UPDATE_MASK_CHAT) != 0;
+        this.exclude_muted = (readInt32 & 2048) != 0;
+        this.exclude_read = (readInt32 & 4096) != 0;
+        this.exclude_archived = (readInt32 & 8192) != 0;
         this.id = abstractSerializedData.readInt32(z);
         this.title = abstractSerializedData.readString(z);
         if ((this.flags & ConnectionsManager.FileTypeVideo) != 0) {
@@ -107,11 +106,11 @@ public class TLRPC$TL_dialogFilter extends TLObject {
         this.flags = i4;
         int i5 = this.bots ? i4 | 16 : i4 & -17;
         this.flags = i5;
-        int i6 = this.exclude_muted ? i5 | MessagesController.UPDATE_MASK_NEW_MESSAGE : i5 & -2049;
+        int i6 = this.exclude_muted ? i5 | 2048 : i5 & -2049;
         this.flags = i6;
-        int i7 = this.exclude_read ? i6 | MessagesController.UPDATE_MASK_SEND_STATE : i6 & -4097;
+        int i7 = this.exclude_read ? i6 | 4096 : i6 & -4097;
         this.flags = i7;
-        int i8 = this.exclude_archived ? i7 | MessagesController.UPDATE_MASK_CHAT : i7 & -8193;
+        int i8 = this.exclude_archived ? i7 | 8192 : i7 & -8193;
         this.flags = i8;
         abstractSerializedData.writeInt32(i8);
         abstractSerializedData.writeInt32(this.id);

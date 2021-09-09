@@ -39,7 +39,7 @@ public abstract class TLRPC$Message extends TLObject {
     public long random_id;
     public TLRPC$TL_messageReactions reactions;
     public int realId;
-    public TLRPC$TL_messageReplies replies;
+    public TLRPC$MessageReplies replies;
     public TLRPC$Message replyMessage;
     public TLRPC$ReplyMarkup reply_markup;
     public TLRPC$TL_messageReplyHeader reply_to;
@@ -53,7 +53,7 @@ public abstract class TLRPC$Message extends TLObject {
     public int ttl;
     public int ttl_period;
     public boolean unread;
-    public int via_bot_id;
+    public long via_bot_id;
     public String via_bot_name;
     public int views;
     public boolean with_my_score;
@@ -63,6 +63,9 @@ public abstract class TLRPC$Message extends TLObject {
         switch (i) {
             case -2082087340:
                 tLRPC$Message = new TLRPC$TL_messageEmpty_layer122();
+                break;
+            case -2049520670:
+                tLRPC$Message = new TLRPC$TL_message();
                 break;
             case -1868117372:
                 tLRPC$Message = new TLRPC$TL_messageEmpty();
@@ -86,7 +89,7 @@ public abstract class TLRPC$Message extends TLObject {
                 tLRPC$Message = new TLRPC$TL_message_old3();
                 break;
             case -1125940270:
-                tLRPC$Message = new TLRPC$TL_message();
+                tLRPC$Message = new TLRPC$TL_message_layer131();
                 break;
             case -1066691065:
                 tLRPC$Message = new TLRPC$TL_messageService_layer48();
@@ -167,13 +170,24 @@ public abstract class TLRPC$Message extends TLObject {
         throw new RuntimeException(String.format("can't parse magic %x in Message", Integer.valueOf(i)));
     }
 
-    /* JADX WARNING: Removed duplicated region for block: B:59:0x00a1  */
+    /* JADX WARNING: Code restructure failed: missing block: B:37:0x005d, code lost:
+        if (r9 == r13) goto L_0x005f;
+     */
+    /* JADX WARNING: Code restructure failed: missing block: B:42:0x0067, code lost:
+        if (r11.send_state != 3) goto L_0x0069;
+     */
+    /* JADX WARNING: Code restructure failed: missing block: B:44:0x006b, code lost:
+        if (r11.legacy != false) goto L_0x006d;
+     */
+    /* JADX WARNING: Removed duplicated region for block: B:28:0x0045  */
+    /* JADX WARNING: Removed duplicated region for block: B:40:0x0063  */
+    /* JADX WARNING: Removed duplicated region for block: B:60:0x00a9  */
     /* Code decompiled incorrectly, please refer to instructions dump. */
-    public void readAttachPath(org.telegram.tgnet.AbstractSerializedData r8, int r9) {
+    public void readAttachPath(org.telegram.tgnet.AbstractSerializedData r12, long r13) {
         /*
-        // Method dump skipped, instructions count: 299
+        // Method dump skipped, instructions count: 307
         */
-        throw new UnsupportedOperationException("Method not decompiled: org.telegram.tgnet.TLRPC$Message.readAttachPath(org.telegram.tgnet.AbstractSerializedData, int):void");
+        throw new UnsupportedOperationException("Method not decompiled: org.telegram.tgnet.TLRPC$Message.readAttachPath(org.telegram.tgnet.AbstractSerializedData, long):void");
     }
 
     /* access modifiers changed from: protected */
@@ -199,8 +213,8 @@ public abstract class TLRPC$Message extends TLObject {
             if (this.params == null) {
                 this.params = new HashMap<>();
             }
-            this.layer = 132;
-            this.params.put("legacy_layer", "132");
+            this.layer = 133;
+            this.params.put("legacy_layer", "133");
         }
         if ((this.id < 0 || this.send_state == 3 || this.legacy) && (hashMap2 = this.params) != null && hashMap2.size() > 0) {
             for (Map.Entry<String, String> entry2 : this.params.entrySet()) {

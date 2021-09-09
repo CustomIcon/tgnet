@@ -1,7 +1,5 @@
 package org.telegram.tgnet;
 
-import org.telegram.messenger.MessagesController;
-
 public class TLRPC$TL_messages_sendInlineBotResult extends TLObject {
     public static int constructor = 570955184;
     public boolean background;
@@ -28,9 +26,9 @@ public class TLRPC$TL_messages_sendInlineBotResult extends TLObject {
         this.flags = i;
         int i2 = this.background ? i | 64 : i & -65;
         this.flags = i2;
-        int i3 = this.clear_draft ? i2 | 128 : i2 & -129;
+        int i3 = this.clear_draft ? i2 | ConnectionsManager.RequestFlagNeedQuickAck : i2 & -129;
         this.flags = i3;
-        int i4 = this.hide_via ? i3 | MessagesController.UPDATE_MASK_NEW_MESSAGE : i3 & -2049;
+        int i4 = this.hide_via ? i3 | 2048 : i3 & -2049;
         this.flags = i4;
         abstractSerializedData.writeInt32(i4);
         this.peer.serializeToStream(abstractSerializedData);
@@ -40,7 +38,7 @@ public class TLRPC$TL_messages_sendInlineBotResult extends TLObject {
         abstractSerializedData.writeInt64(this.random_id);
         abstractSerializedData.writeInt64(this.query_id);
         abstractSerializedData.writeString(this.id);
-        if ((this.flags & MessagesController.UPDATE_MASK_PHONE) != 0) {
+        if ((this.flags & 1024) != 0) {
             abstractSerializedData.writeInt32(this.schedule_date);
         }
     }

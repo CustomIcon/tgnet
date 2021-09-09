@@ -1,14 +1,13 @@
 package org.telegram.tgnet;
 
 import android.text.TextUtils;
-import org.telegram.messenger.MessagesController;
 
 public class TLRPC$TL_message_old2 extends TLRPC$TL_message {
     public static int constructor = 1450613171;
 
     @Override // org.telegram.tgnet.TLObject, org.telegram.tgnet.TLRPC$TL_message
     public void readParams(AbstractSerializedData abstractSerializedData, boolean z) {
-        int readInt32 = abstractSerializedData.readInt32(z) | MessagesController.UPDATE_MASK_READ_DIALOG_MESSAGE | MessagesController.UPDATE_MASK_SELECT_DIALOG;
+        int readInt32 = abstractSerializedData.readInt32(z) | 256 | 512;
         this.flags = readInt32;
         boolean z2 = false;
         this.unread = (readInt32 & 1) != 0;
@@ -21,7 +20,7 @@ public class TLRPC$TL_message_old2 extends TLRPC$TL_message {
         this.id = abstractSerializedData.readInt32(z);
         TLRPC$TL_peerUser tLRPC$TL_peerUser = new TLRPC$TL_peerUser();
         this.from_id = tLRPC$TL_peerUser;
-        tLRPC$TL_peerUser.user_id = abstractSerializedData.readInt32(z);
+        tLRPC$TL_peerUser.user_id = (long) abstractSerializedData.readInt32(z);
         this.peer_id = TLRPC$Peer.TLdeserialize(abstractSerializedData, abstractSerializedData.readInt32(z), z);
         this.date = abstractSerializedData.readInt32(z);
         this.message = abstractSerializedData.readString(z);
@@ -45,7 +44,7 @@ public class TLRPC$TL_message_old2 extends TLRPC$TL_message {
         this.flags = i4;
         abstractSerializedData.writeInt32(i4);
         abstractSerializedData.writeInt32(this.id);
-        abstractSerializedData.writeInt32(this.from_id.user_id);
+        abstractSerializedData.writeInt32((int) this.from_id.user_id);
         this.peer_id.serializeToStream(abstractSerializedData);
         abstractSerializedData.writeInt32(this.date);
         abstractSerializedData.writeString(this.message);

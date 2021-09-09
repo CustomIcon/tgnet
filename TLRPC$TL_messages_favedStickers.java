@@ -1,11 +1,11 @@
 package org.telegram.tgnet;
 
 public class TLRPC$TL_messages_favedStickers extends TLRPC$messages_FavedStickers {
-    public static int constructor = -209768682;
+    public static int constructor = 750063767;
 
     @Override // org.telegram.tgnet.TLObject
     public void readParams(AbstractSerializedData abstractSerializedData, boolean z) {
-        this.hash = abstractSerializedData.readInt32(z);
+        this.hash = abstractSerializedData.readInt64(z);
         int readInt32 = abstractSerializedData.readInt32(z);
         if (readInt32 == 481674261) {
             int readInt322 = abstractSerializedData.readInt32(z);
@@ -39,7 +39,7 @@ public class TLRPC$TL_messages_favedStickers extends TLRPC$messages_FavedSticker
     @Override // org.telegram.tgnet.TLObject
     public void serializeToStream(AbstractSerializedData abstractSerializedData) {
         abstractSerializedData.writeInt32(constructor);
-        abstractSerializedData.writeInt32(this.hash);
+        abstractSerializedData.writeInt64(this.hash);
         abstractSerializedData.writeInt32(481674261);
         int size = this.packs.size();
         abstractSerializedData.writeInt32(size);

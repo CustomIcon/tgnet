@@ -1,7 +1,7 @@
 package org.telegram.tgnet;
 
 public class TLRPC$TL_inputUserFromMessage extends TLRPC$InputUser {
-    public static int constructor = 756118935;
+    public static int constructor = 497305826;
     public int msg_id;
     public TLRPC$InputPeer peer;
 
@@ -9,7 +9,7 @@ public class TLRPC$TL_inputUserFromMessage extends TLRPC$InputUser {
     public void readParams(AbstractSerializedData abstractSerializedData, boolean z) {
         this.peer = TLRPC$InputPeer.TLdeserialize(abstractSerializedData, abstractSerializedData.readInt32(z), z);
         this.msg_id = abstractSerializedData.readInt32(z);
-        this.user_id = abstractSerializedData.readInt32(z);
+        this.user_id = abstractSerializedData.readInt64(z);
     }
 
     @Override // org.telegram.tgnet.TLObject
@@ -17,6 +17,6 @@ public class TLRPC$TL_inputUserFromMessage extends TLRPC$InputUser {
         abstractSerializedData.writeInt32(constructor);
         this.peer.serializeToStream(abstractSerializedData);
         abstractSerializedData.writeInt32(this.msg_id);
-        abstractSerializedData.writeInt32(this.user_id);
+        abstractSerializedData.writeInt64(this.user_id);
     }
 }

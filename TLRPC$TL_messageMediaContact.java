@@ -1,7 +1,7 @@
 package org.telegram.tgnet;
 
 public class TLRPC$TL_messageMediaContact extends TLRPC$MessageMedia {
-    public static int constructor = -873313984;
+    public static int constructor = 1882335561;
 
     @Override // org.telegram.tgnet.TLObject
     public void readParams(AbstractSerializedData abstractSerializedData, boolean z) {
@@ -9,7 +9,7 @@ public class TLRPC$TL_messageMediaContact extends TLRPC$MessageMedia {
         this.first_name = abstractSerializedData.readString(z);
         this.last_name = abstractSerializedData.readString(z);
         this.vcard = abstractSerializedData.readString(z);
-        this.user_id = abstractSerializedData.readInt32(z);
+        this.user_id = abstractSerializedData.readInt64(z);
     }
 
     @Override // org.telegram.tgnet.TLObject
@@ -19,6 +19,6 @@ public class TLRPC$TL_messageMediaContact extends TLRPC$MessageMedia {
         abstractSerializedData.writeString(this.first_name);
         abstractSerializedData.writeString(this.last_name);
         abstractSerializedData.writeString(this.vcard);
-        abstractSerializedData.writeInt32(this.user_id);
+        abstractSerializedData.writeInt64(this.user_id);
     }
 }

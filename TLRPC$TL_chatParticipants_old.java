@@ -5,8 +5,8 @@ public class TLRPC$TL_chatParticipants_old extends TLRPC$TL_chatParticipants {
 
     @Override // org.telegram.tgnet.TLObject, org.telegram.tgnet.TLRPC$TL_chatParticipants
     public void readParams(AbstractSerializedData abstractSerializedData, boolean z) {
-        this.chat_id = abstractSerializedData.readInt32(z);
-        this.admin_id = abstractSerializedData.readInt32(z);
+        this.chat_id = (long) abstractSerializedData.readInt32(z);
+        this.admin_id = (long) abstractSerializedData.readInt32(z);
         int readInt32 = abstractSerializedData.readInt32(z);
         if (readInt32 == 481674261) {
             int readInt322 = abstractSerializedData.readInt32(z);
@@ -27,8 +27,8 @@ public class TLRPC$TL_chatParticipants_old extends TLRPC$TL_chatParticipants {
     @Override // org.telegram.tgnet.TLObject, org.telegram.tgnet.TLRPC$TL_chatParticipants
     public void serializeToStream(AbstractSerializedData abstractSerializedData) {
         abstractSerializedData.writeInt32(constructor);
-        abstractSerializedData.writeInt32(this.chat_id);
-        abstractSerializedData.writeInt32(this.admin_id);
+        abstractSerializedData.writeInt32((int) this.chat_id);
+        abstractSerializedData.writeInt32((int) this.admin_id);
         abstractSerializedData.writeInt32(481674261);
         int size = this.participants.size();
         abstractSerializedData.writeInt32(size);

@@ -1,8 +1,8 @@
 package org.telegram.tgnet;
 
 public class TLRPC$TL_messages_deleteChatUser extends TLObject {
-    public static int constructor = -986430054;
-    public int chat_id;
+    public static int constructor = -1575461717;
+    public long chat_id;
     public int flags;
     public boolean revoke_history;
     public TLRPC$InputUser user_id;
@@ -18,7 +18,7 @@ public class TLRPC$TL_messages_deleteChatUser extends TLObject {
         int i = this.revoke_history ? this.flags | 1 : this.flags & -2;
         this.flags = i;
         abstractSerializedData.writeInt32(i);
-        abstractSerializedData.writeInt32(this.chat_id);
+        abstractSerializedData.writeInt64(this.chat_id);
         this.user_id.serializeToStream(abstractSerializedData);
     }
 }

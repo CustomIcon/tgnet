@@ -1,7 +1,7 @@
 package org.telegram.tgnet;
 
 public class TLRPC$TL_channelParticipantAdmin extends TLRPC$ChannelParticipant {
-    public static int constructor = -859915345;
+    public static int constructor = 885242707;
 
     @Override // org.telegram.tgnet.TLObject
     public void readParams(AbstractSerializedData abstractSerializedData, boolean z) {
@@ -15,11 +15,11 @@ public class TLRPC$TL_channelParticipantAdmin extends TLRPC$ChannelParticipant {
         this.self = z2;
         TLRPC$TL_peerUser tLRPC$TL_peerUser = new TLRPC$TL_peerUser();
         this.peer = tLRPC$TL_peerUser;
-        tLRPC$TL_peerUser.user_id = abstractSerializedData.readInt32(z);
+        tLRPC$TL_peerUser.user_id = abstractSerializedData.readInt64(z);
         if ((this.flags & 2) != 0) {
-            this.inviter_id = abstractSerializedData.readInt32(z);
+            this.inviter_id = abstractSerializedData.readInt64(z);
         }
-        this.promoted_by = abstractSerializedData.readInt32(z);
+        this.promoted_by = abstractSerializedData.readInt64(z);
         this.date = abstractSerializedData.readInt32(z);
         this.admin_rights = TLRPC$TL_chatAdminRights.TLdeserialize(abstractSerializedData, abstractSerializedData.readInt32(z), z);
         if ((this.flags & 4) != 0) {
@@ -35,11 +35,11 @@ public class TLRPC$TL_channelParticipantAdmin extends TLRPC$ChannelParticipant {
         int i2 = this.self ? i | 2 : i & -3;
         this.flags = i2;
         abstractSerializedData.writeInt32(i2);
-        abstractSerializedData.writeInt32(this.peer.user_id);
+        abstractSerializedData.writeInt64(this.peer.user_id);
         if ((this.flags & 2) != 0) {
-            abstractSerializedData.writeInt32(this.inviter_id);
+            abstractSerializedData.writeInt64(this.inviter_id);
         }
-        abstractSerializedData.writeInt32(this.promoted_by);
+        abstractSerializedData.writeInt64(this.promoted_by);
         abstractSerializedData.writeInt32(this.date);
         this.admin_rights.serializeToStream(abstractSerializedData);
         if ((this.flags & 4) != 0) {

@@ -1,7 +1,5 @@
 package org.telegram.tgnet;
 
-import org.telegram.messenger.MessagesController;
-
 public class TLRPC$TL_channelForbidden_layer67 extends TLRPC$TL_channelForbidden {
     public static int constructor = -2059962289;
 
@@ -11,11 +9,11 @@ public class TLRPC$TL_channelForbidden_layer67 extends TLRPC$TL_channelForbidden
         this.flags = readInt32;
         boolean z2 = true;
         this.broadcast = (readInt32 & 32) != 0;
-        if ((readInt32 & MessagesController.UPDATE_MASK_READ_DIALOG_MESSAGE) == 0) {
+        if ((readInt32 & 256) == 0) {
             z2 = false;
         }
         this.megagroup = z2;
-        this.id = abstractSerializedData.readInt32(z);
+        this.id = (long) abstractSerializedData.readInt32(z);
         this.access_hash = abstractSerializedData.readInt64(z);
         this.title = abstractSerializedData.readString(z);
     }
@@ -25,10 +23,10 @@ public class TLRPC$TL_channelForbidden_layer67 extends TLRPC$TL_channelForbidden
         abstractSerializedData.writeInt32(constructor);
         int i = this.broadcast ? this.flags | 32 : this.flags & -33;
         this.flags = i;
-        int i2 = this.megagroup ? i | MessagesController.UPDATE_MASK_READ_DIALOG_MESSAGE : i & -257;
+        int i2 = this.megagroup ? i | 256 : i & -257;
         this.flags = i2;
         abstractSerializedData.writeInt32(i2);
-        abstractSerializedData.writeInt32(this.id);
+        abstractSerializedData.writeInt32((int) this.id);
         abstractSerializedData.writeInt64(this.access_hash);
         abstractSerializedData.writeString(this.title);
     }

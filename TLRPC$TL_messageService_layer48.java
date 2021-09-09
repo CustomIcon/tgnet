@@ -1,7 +1,5 @@
 package org.telegram.tgnet;
 
-import org.telegram.messenger.MessagesController;
-
 public class TLRPC$TL_messageService_layer48 extends TLRPC$TL_messageService {
     public static int constructor = -1066691065;
 
@@ -14,16 +12,16 @@ public class TLRPC$TL_messageService_layer48 extends TLRPC$TL_messageService {
         this.out = (readInt32 & 2) != 0;
         this.mentioned = (readInt32 & 16) != 0;
         this.media_unread = (readInt32 & 32) != 0;
-        this.silent = (readInt32 & MessagesController.UPDATE_MASK_CHAT) != 0;
+        this.silent = (readInt32 & 8192) != 0;
         if ((readInt32 & 16384) != 0) {
             z2 = true;
         }
         this.post = z2;
         this.id = abstractSerializedData.readInt32(z);
-        if ((this.flags & MessagesController.UPDATE_MASK_READ_DIALOG_MESSAGE) != 0) {
+        if ((this.flags & 256) != 0) {
             TLRPC$TL_peerUser tLRPC$TL_peerUser = new TLRPC$TL_peerUser();
             this.from_id = tLRPC$TL_peerUser;
-            tLRPC$TL_peerUser.user_id = abstractSerializedData.readInt32(z);
+            tLRPC$TL_peerUser.user_id = (long) abstractSerializedData.readInt32(z);
         }
         TLRPC$Peer TLdeserialize = TLRPC$Peer.TLdeserialize(abstractSerializedData, abstractSerializedData.readInt32(z), z);
         this.peer_id = TLdeserialize;
@@ -45,14 +43,14 @@ public class TLRPC$TL_messageService_layer48 extends TLRPC$TL_messageService {
         this.flags = i3;
         int i4 = this.media_unread ? i3 | 32 : i3 & -33;
         this.flags = i4;
-        int i5 = this.silent ? i4 | MessagesController.UPDATE_MASK_CHAT : i4 & -8193;
+        int i5 = this.silent ? i4 | 8192 : i4 & -8193;
         this.flags = i5;
         int i6 = this.post ? i5 | 16384 : i5 & -16385;
         this.flags = i6;
         abstractSerializedData.writeInt32(i6);
         abstractSerializedData.writeInt32(this.id);
-        if ((this.flags & MessagesController.UPDATE_MASK_READ_DIALOG_MESSAGE) != 0) {
-            abstractSerializedData.writeInt32(this.from_id.user_id);
+        if ((this.flags & 256) != 0) {
+            abstractSerializedData.writeInt32((int) this.from_id.user_id);
         }
         this.peer_id.serializeToStream(abstractSerializedData);
         abstractSerializedData.writeInt32(this.date);

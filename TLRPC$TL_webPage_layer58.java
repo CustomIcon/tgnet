@@ -1,7 +1,5 @@
 package org.telegram.tgnet;
 
-import org.telegram.messenger.MessagesController;
-
 public class TLRPC$TL_webPage_layer58 extends TLRPC$TL_webPage {
     public static int constructor = -897446185;
 
@@ -38,13 +36,13 @@ public class TLRPC$TL_webPage_layer58 extends TLRPC$TL_webPage {
         if ((this.flags & 64) != 0) {
             this.embed_height = abstractSerializedData.readInt32(z);
         }
-        if ((this.flags & 128) != 0) {
+        if ((this.flags & ConnectionsManager.RequestFlagNeedQuickAck) != 0) {
             this.duration = abstractSerializedData.readInt32(z);
         }
-        if ((this.flags & MessagesController.UPDATE_MASK_READ_DIALOG_MESSAGE) != 0) {
+        if ((this.flags & 256) != 0) {
             this.author = abstractSerializedData.readString(z);
         }
-        if ((this.flags & MessagesController.UPDATE_MASK_SELECT_DIALOG) != 0) {
+        if ((this.flags & 512) != 0) {
             this.document = TLRPC$Document.TLdeserialize(abstractSerializedData, abstractSerializedData.readInt32(z), z);
         }
     }
@@ -83,13 +81,13 @@ public class TLRPC$TL_webPage_layer58 extends TLRPC$TL_webPage {
         if ((this.flags & 64) != 0) {
             abstractSerializedData.writeInt32(this.embed_height);
         }
-        if ((this.flags & 128) != 0) {
+        if ((this.flags & ConnectionsManager.RequestFlagNeedQuickAck) != 0) {
             abstractSerializedData.writeInt32(this.duration);
         }
-        if ((this.flags & MessagesController.UPDATE_MASK_READ_DIALOG_MESSAGE) != 0) {
+        if ((this.flags & 256) != 0) {
             abstractSerializedData.writeString(this.author);
         }
-        if ((this.flags & MessagesController.UPDATE_MASK_SELECT_DIALOG) != 0) {
+        if ((this.flags & 512) != 0) {
             this.document.serializeToStream(abstractSerializedData);
         }
     }

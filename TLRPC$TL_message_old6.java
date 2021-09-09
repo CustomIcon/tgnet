@@ -1,14 +1,13 @@
 package org.telegram.tgnet;
 
 import android.text.TextUtils;
-import org.telegram.messenger.MessagesController;
 
 public class TLRPC$TL_message_old6 extends TLRPC$TL_message {
     public static int constructor = 736885382;
 
     @Override // org.telegram.tgnet.TLObject, org.telegram.tgnet.TLRPC$TL_message
     public void readParams(AbstractSerializedData abstractSerializedData, boolean z) {
-        int readInt32 = abstractSerializedData.readInt32(z) | MessagesController.UPDATE_MASK_READ_DIALOG_MESSAGE;
+        int readInt32 = abstractSerializedData.readInt32(z) | 256;
         this.flags = readInt32;
         this.unread = (readInt32 & 1) != 0;
         this.out = (readInt32 & 2) != 0;
@@ -17,13 +16,13 @@ public class TLRPC$TL_message_old6 extends TLRPC$TL_message {
         this.id = abstractSerializedData.readInt32(z);
         TLRPC$TL_peerUser tLRPC$TL_peerUser = new TLRPC$TL_peerUser();
         this.from_id = tLRPC$TL_peerUser;
-        tLRPC$TL_peerUser.user_id = abstractSerializedData.readInt32(z);
+        tLRPC$TL_peerUser.user_id = (long) abstractSerializedData.readInt32(z);
         this.peer_id = TLRPC$Peer.TLdeserialize(abstractSerializedData, abstractSerializedData.readInt32(z), z);
         if ((this.flags & 4) != 0) {
             TLRPC$TL_messageFwdHeader tLRPC$TL_messageFwdHeader = new TLRPC$TL_messageFwdHeader();
             this.fwd_from = tLRPC$TL_messageFwdHeader;
             tLRPC$TL_messageFwdHeader.from_id = new TLRPC$TL_peerUser();
-            this.fwd_from.from_id.user_id = abstractSerializedData.readInt32(z);
+            this.fwd_from.from_id.user_id = (long) abstractSerializedData.readInt32(z);
             TLRPC$MessageFwdHeader tLRPC$MessageFwdHeader = this.fwd_from;
             tLRPC$MessageFwdHeader.flags |= 1;
             tLRPC$MessageFwdHeader.date = abstractSerializedData.readInt32(z);
@@ -35,7 +34,7 @@ public class TLRPC$TL_message_old6 extends TLRPC$TL_message {
         }
         this.date = abstractSerializedData.readInt32(z);
         this.message = abstractSerializedData.readString(z);
-        if ((this.flags & MessagesController.UPDATE_MASK_SELECT_DIALOG) != 0) {
+        if ((this.flags & 512) != 0) {
             TLRPC$MessageMedia TLdeserialize = TLRPC$MessageMedia.TLdeserialize(abstractSerializedData, abstractSerializedData.readInt32(z), z);
             this.media = TLdeserialize;
             if (TLdeserialize != null && !TextUtils.isEmpty(TLdeserialize.captionLegacy)) {
@@ -47,7 +46,7 @@ public class TLRPC$TL_message_old6 extends TLRPC$TL_message {
         if ((this.flags & 64) != 0) {
             this.reply_markup = TLRPC$ReplyMarkup.TLdeserialize(abstractSerializedData, abstractSerializedData.readInt32(z), z);
         }
-        if ((this.flags & 128) != 0) {
+        if ((this.flags & ConnectionsManager.RequestFlagNeedQuickAck) != 0) {
             int readInt322 = abstractSerializedData.readInt32(z);
             if (readInt322 == 481674261) {
                 int readInt323 = abstractSerializedData.readInt32(z);
@@ -78,10 +77,10 @@ public class TLRPC$TL_message_old6 extends TLRPC$TL_message {
         this.flags = i4;
         abstractSerializedData.writeInt32(i4);
         abstractSerializedData.writeInt32(this.id);
-        abstractSerializedData.writeInt32(this.from_id.user_id);
+        abstractSerializedData.writeInt32((int) this.from_id.user_id);
         this.peer_id.serializeToStream(abstractSerializedData);
         if ((this.flags & 4) != 0) {
-            abstractSerializedData.writeInt32(this.fwd_from.from_id.user_id);
+            abstractSerializedData.writeInt32((int) this.fwd_from.from_id.user_id);
             abstractSerializedData.writeInt32(this.fwd_from.date);
         }
         if ((this.flags & 8) != 0) {
@@ -89,13 +88,13 @@ public class TLRPC$TL_message_old6 extends TLRPC$TL_message {
         }
         abstractSerializedData.writeInt32(this.date);
         abstractSerializedData.writeString(this.message);
-        if ((this.flags & MessagesController.UPDATE_MASK_SELECT_DIALOG) != 0) {
+        if ((this.flags & 512) != 0) {
             this.media.serializeToStream(abstractSerializedData);
         }
         if ((this.flags & 64) != 0) {
             this.reply_markup.serializeToStream(abstractSerializedData);
         }
-        if ((this.flags & 128) != 0) {
+        if ((this.flags & ConnectionsManager.RequestFlagNeedQuickAck) != 0) {
             abstractSerializedData.writeInt32(481674261);
             int size = this.entities.size();
             abstractSerializedData.writeInt32(size);

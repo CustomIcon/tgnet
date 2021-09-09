@@ -1,7 +1,6 @@
 package org.telegram.tgnet;
 
 import java.util.ArrayList;
-import org.telegram.messenger.MessagesController;
 
 public class TLRPC$TL_invoice extends TLObject {
     public static int constructor = 215516896;
@@ -42,7 +41,7 @@ public class TLRPC$TL_invoice extends TLObject {
         this.shipping_address_requested = (readInt32 & 16) != 0;
         this.flexible = (readInt32 & 32) != 0;
         this.phone_to_provider = (readInt32 & 64) != 0;
-        this.email_to_provider = (readInt32 & 128) != 0;
+        this.email_to_provider = (readInt32 & ConnectionsManager.RequestFlagNeedQuickAck) != 0;
         this.currency = abstractSerializedData.readString(z);
         int readInt322 = abstractSerializedData.readInt32(z);
         if (readInt322 == 481674261) {
@@ -55,10 +54,10 @@ public class TLRPC$TL_invoice extends TLObject {
                     return;
                 }
             }
-            if ((this.flags & MessagesController.UPDATE_MASK_READ_DIALOG_MESSAGE) != 0) {
+            if ((this.flags & 256) != 0) {
                 this.max_tip_amount = abstractSerializedData.readInt64(z);
             }
-            if ((this.flags & MessagesController.UPDATE_MASK_READ_DIALOG_MESSAGE) != 0) {
+            if ((this.flags & 256) != 0) {
                 int readInt324 = abstractSerializedData.readInt32(z);
                 if (readInt324 == 481674261) {
                     int readInt325 = abstractSerializedData.readInt32(z);
@@ -91,7 +90,7 @@ public class TLRPC$TL_invoice extends TLObject {
         this.flags = i6;
         int i7 = this.phone_to_provider ? i6 | 64 : i6 & -65;
         this.flags = i7;
-        int i8 = this.email_to_provider ? i7 | 128 : i7 & -129;
+        int i8 = this.email_to_provider ? i7 | ConnectionsManager.RequestFlagNeedQuickAck : i7 & -129;
         this.flags = i8;
         abstractSerializedData.writeInt32(i8);
         abstractSerializedData.writeString(this.currency);
@@ -101,10 +100,10 @@ public class TLRPC$TL_invoice extends TLObject {
         for (int i9 = 0; i9 < size; i9++) {
             this.prices.get(i9).serializeToStream(abstractSerializedData);
         }
-        if ((this.flags & MessagesController.UPDATE_MASK_READ_DIALOG_MESSAGE) != 0) {
+        if ((this.flags & 256) != 0) {
             abstractSerializedData.writeInt64(this.max_tip_amount);
         }
-        if ((this.flags & MessagesController.UPDATE_MASK_READ_DIALOG_MESSAGE) != 0) {
+        if ((this.flags & 256) != 0) {
             abstractSerializedData.writeInt32(481674261);
             int size2 = this.suggested_tip_amounts.size();
             abstractSerializedData.writeInt32(size2);

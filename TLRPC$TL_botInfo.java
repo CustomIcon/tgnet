@@ -1,11 +1,11 @@
 package org.telegram.tgnet;
 
 public class TLRPC$TL_botInfo extends TLRPC$BotInfo {
-    public static int constructor = -1729618630;
+    public static int constructor = 460632885;
 
     @Override // org.telegram.tgnet.TLObject
     public void readParams(AbstractSerializedData abstractSerializedData, boolean z) {
-        this.user_id = abstractSerializedData.readInt32(z);
+        this.user_id = abstractSerializedData.readInt64(z);
         this.description = abstractSerializedData.readString(z);
         int readInt32 = abstractSerializedData.readInt32(z);
         if (readInt32 == 481674261) {
@@ -26,7 +26,7 @@ public class TLRPC$TL_botInfo extends TLRPC$BotInfo {
     @Override // org.telegram.tgnet.TLObject
     public void serializeToStream(AbstractSerializedData abstractSerializedData) {
         abstractSerializedData.writeInt32(constructor);
-        abstractSerializedData.writeInt32(this.user_id);
+        abstractSerializedData.writeInt64(this.user_id);
         abstractSerializedData.writeString(this.description);
         abstractSerializedData.writeInt32(481674261);
         int size = this.commands.size();

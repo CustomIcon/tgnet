@@ -1,8 +1,8 @@
 package org.telegram.tgnet;
 
 public class TLRPC$TL_messages_getFullChat extends TLObject {
-    public static int constructor = 998448230;
-    public int chat_id;
+    public static int constructor = -1364194508;
+    public long chat_id;
 
     @Override // org.telegram.tgnet.TLObject
     public TLObject deserializeResponse(AbstractSerializedData abstractSerializedData, int i, boolean z) {
@@ -12,6 +12,6 @@ public class TLRPC$TL_messages_getFullChat extends TLObject {
     @Override // org.telegram.tgnet.TLObject
     public void serializeToStream(AbstractSerializedData abstractSerializedData) {
         abstractSerializedData.writeInt32(constructor);
-        abstractSerializedData.writeInt32(this.chat_id);
+        abstractSerializedData.writeInt64(this.chat_id);
     }
 }

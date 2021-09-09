@@ -1,7 +1,5 @@
 package org.telegram.tgnet;
 
-import org.telegram.messenger.MessagesController;
-
 public class TLRPC$TL_channel_old extends TLRPC$TL_channel {
     public static int constructor = 1737397639;
 
@@ -15,13 +13,13 @@ public class TLRPC$TL_channel_old extends TLRPC$TL_channel {
         this.left = (readInt32 & 4) != 0;
         this.moderator = (readInt32 & 16) != 0;
         this.broadcast = (readInt32 & 32) != 0;
-        this.verified = (readInt32 & 128) != 0;
-        this.megagroup = (readInt32 & MessagesController.UPDATE_MASK_READ_DIALOG_MESSAGE) != 0;
-        if ((readInt32 & MessagesController.UPDATE_MASK_SELECT_DIALOG) != 0) {
+        this.verified = (readInt32 & ConnectionsManager.RequestFlagNeedQuickAck) != 0;
+        this.megagroup = (readInt32 & 256) != 0;
+        if ((readInt32 & 512) != 0) {
             z2 = true;
         }
         this.explicit_content = z2;
-        this.id = abstractSerializedData.readInt32(z);
+        this.id = (long) abstractSerializedData.readInt32(z);
         this.access_hash = abstractSerializedData.readInt64(z);
         this.title = abstractSerializedData.readString(z);
         if ((this.flags & 64) != 0) {
@@ -45,14 +43,14 @@ public class TLRPC$TL_channel_old extends TLRPC$TL_channel {
         this.flags = i4;
         int i5 = this.broadcast ? i4 | 32 : i4 & -33;
         this.flags = i5;
-        int i6 = this.verified ? i5 | 128 : i5 & -129;
+        int i6 = this.verified ? i5 | ConnectionsManager.RequestFlagNeedQuickAck : i5 & -129;
         this.flags = i6;
-        int i7 = this.megagroup ? i6 | MessagesController.UPDATE_MASK_READ_DIALOG_MESSAGE : i6 & -257;
+        int i7 = this.megagroup ? i6 | 256 : i6 & -257;
         this.flags = i7;
-        int i8 = this.explicit_content ? i7 | MessagesController.UPDATE_MASK_SELECT_DIALOG : i7 & -513;
+        int i8 = this.explicit_content ? i7 | 512 : i7 & -513;
         this.flags = i8;
         abstractSerializedData.writeInt32(i8);
-        abstractSerializedData.writeInt32(this.id);
+        abstractSerializedData.writeInt32((int) this.id);
         abstractSerializedData.writeInt64(this.access_hash);
         abstractSerializedData.writeString(this.title);
         if ((this.flags & 64) != 0) {

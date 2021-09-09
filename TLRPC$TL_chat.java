@@ -1,7 +1,7 @@
 package org.telegram.tgnet;
 
 public class TLRPC$TL_chat extends TLRPC$Chat {
-    public static int constructor = 1004149726;
+    public static int constructor = 1103884886;
 
     @Override // org.telegram.tgnet.TLObject
     public void readParams(AbstractSerializedData abstractSerializedData, boolean z) {
@@ -17,7 +17,7 @@ public class TLRPC$TL_chat extends TLRPC$Chat {
             z2 = true;
         }
         this.call_not_empty = z2;
-        this.id = abstractSerializedData.readInt32(z);
+        this.id = abstractSerializedData.readInt64(z);
         this.title = abstractSerializedData.readString(z);
         this.photo = TLRPC$ChatPhoto.TLdeserialize(abstractSerializedData, abstractSerializedData.readInt32(z), z);
         this.participants_count = abstractSerializedData.readInt32(z);
@@ -50,7 +50,7 @@ public class TLRPC$TL_chat extends TLRPC$Chat {
         int i6 = this.call_not_empty ? i5 | ConnectionsManager.FileTypePhoto : i5 & -16777217;
         this.flags = i6;
         abstractSerializedData.writeInt32(i6);
-        abstractSerializedData.writeInt32(this.id);
+        abstractSerializedData.writeInt64(this.id);
         abstractSerializedData.writeString(this.title);
         this.photo.serializeToStream(abstractSerializedData);
         abstractSerializedData.writeInt32(this.participants_count);

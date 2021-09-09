@@ -1,8 +1,8 @@
 package org.telegram.tgnet;
 
 public class TLRPC$TL_messages_editChatAdmin extends TLObject {
-    public static int constructor = -1444503762;
-    public int chat_id;
+    public static int constructor = -1470377534;
+    public long chat_id;
     public boolean is_admin;
     public TLRPC$InputUser user_id;
 
@@ -14,7 +14,7 @@ public class TLRPC$TL_messages_editChatAdmin extends TLObject {
     @Override // org.telegram.tgnet.TLObject
     public void serializeToStream(AbstractSerializedData abstractSerializedData) {
         abstractSerializedData.writeInt32(constructor);
-        abstractSerializedData.writeInt32(this.chat_id);
+        abstractSerializedData.writeInt64(this.chat_id);
         this.user_id.serializeToStream(abstractSerializedData);
         abstractSerializedData.writeBool(this.is_admin);
     }
