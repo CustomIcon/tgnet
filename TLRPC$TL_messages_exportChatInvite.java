@@ -1,0 +1,30 @@
+package org.telegram.tgnet;
+
+public class TLRPC$TL_messages_exportChatInvite extends TLObject {
+    public static int constructor = 347716823;
+    public int expire_date;
+    public int flags;
+    public boolean legacy_revoke_permanent;
+    public TLRPC$InputPeer peer;
+    public int usage_limit;
+
+    @Override // org.telegram.tgnet.TLObject
+    public TLObject deserializeResponse(AbstractSerializedData abstractSerializedData, int i, boolean z) {
+        return TLRPC$ExportedChatInvite.TLdeserialize(abstractSerializedData, i, z);
+    }
+
+    @Override // org.telegram.tgnet.TLObject
+    public void serializeToStream(AbstractSerializedData abstractSerializedData) {
+        abstractSerializedData.writeInt32(constructor);
+        int i = this.legacy_revoke_permanent ? this.flags | 4 : this.flags & -5;
+        this.flags = i;
+        abstractSerializedData.writeInt32(i);
+        this.peer.serializeToStream(abstractSerializedData);
+        if ((this.flags & 1) != 0) {
+            abstractSerializedData.writeInt32(this.expire_date);
+        }
+        if ((this.flags & 2) != 0) {
+            abstractSerializedData.writeInt32(this.usage_limit);
+        }
+    }
+}

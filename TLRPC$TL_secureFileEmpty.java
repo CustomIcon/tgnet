@@ -1,0 +1,10 @@
+package org.telegram.tgnet;
+
+public class TLRPC$TL_secureFileEmpty extends TLRPC$SecureFile {
+    public static int constructor = 1679398724;
+
+    @Override // org.telegram.tgnet.TLObject
+    public void serializeToStream(AbstractSerializedData abstractSerializedData) {
+        abstractSerializedData.writeInt32(constructor);
+    }
+}

@@ -1,0 +1,156 @@
+package org.telegram.tgnet;
+
+import org.telegram.messenger.MessagesController;
+
+public class TLRPC$TL_channelFull_layer103 extends TLRPC$TL_channelFull {
+    public static int constructor = 277964371;
+
+    @Override // org.telegram.tgnet.TLRPC$TL_channelFull, org.telegram.tgnet.TLObject
+    public void readParams(AbstractSerializedData abstractSerializedData, boolean z) {
+        int readInt32 = abstractSerializedData.readInt32(z);
+        this.flags = readInt32;
+        this.can_view_participants = (readInt32 & 8) != 0;
+        this.can_set_username = (readInt32 & 64) != 0;
+        this.can_set_stickers = (readInt32 & 128) != 0;
+        this.hidden_prehistory = (readInt32 & MessagesController.UPDATE_MASK_PHONE) != 0;
+        this.can_view_stats = (readInt32 & MessagesController.UPDATE_MASK_SEND_STATE) != 0;
+        this.can_set_location = (readInt32 & MessagesController.UPDATE_MASK_CHECK) != 0;
+        this.id = abstractSerializedData.readInt32(z);
+        this.about = abstractSerializedData.readString(z);
+        if ((this.flags & 1) != 0) {
+            this.participants_count = abstractSerializedData.readInt32(z);
+        }
+        if ((this.flags & 2) != 0) {
+            this.admins_count = abstractSerializedData.readInt32(z);
+        }
+        if ((this.flags & 4) != 0) {
+            this.kicked_count = abstractSerializedData.readInt32(z);
+        }
+        if ((this.flags & 4) != 0) {
+            this.banned_count = abstractSerializedData.readInt32(z);
+        }
+        if ((this.flags & MessagesController.UPDATE_MASK_CHAT) != 0) {
+            this.online_count = abstractSerializedData.readInt32(z);
+        }
+        this.read_inbox_max_id = abstractSerializedData.readInt32(z);
+        this.read_outbox_max_id = abstractSerializedData.readInt32(z);
+        this.unread_count = abstractSerializedData.readInt32(z);
+        this.chat_photo = TLRPC$Photo.TLdeserialize(abstractSerializedData, abstractSerializedData.readInt32(z), z);
+        this.notify_settings = TLRPC$PeerNotifySettings.TLdeserialize(abstractSerializedData, abstractSerializedData.readInt32(z), z);
+        TLRPC$ExportedChatInvite TLdeserialize = TLRPC$ExportedChatInvite.TLdeserialize(abstractSerializedData, abstractSerializedData.readInt32(z), z);
+        if (TLdeserialize instanceof TLRPC$TL_chatInviteExported) {
+            this.exported_invite = (TLRPC$TL_chatInviteExported) TLdeserialize;
+        }
+        int readInt322 = abstractSerializedData.readInt32(z);
+        if (readInt322 == 481674261) {
+            int readInt323 = abstractSerializedData.readInt32(z);
+            for (int i = 0; i < readInt323; i++) {
+                TLRPC$BotInfo TLdeserialize2 = TLRPC$BotInfo.TLdeserialize(abstractSerializedData, abstractSerializedData.readInt32(z), z);
+                if (TLdeserialize2 != null) {
+                    this.bot_info.add(TLdeserialize2);
+                } else {
+                    return;
+                }
+            }
+            if ((this.flags & 16) != 0) {
+                this.migrated_from_chat_id = abstractSerializedData.readInt32(z);
+            }
+            if ((this.flags & 16) != 0) {
+                this.migrated_from_max_id = abstractSerializedData.readInt32(z);
+            }
+            if ((this.flags & 32) != 0) {
+                this.pinned_msg_id = abstractSerializedData.readInt32(z);
+            }
+            if ((this.flags & MessagesController.UPDATE_MASK_READ_DIALOG_MESSAGE) != 0) {
+                this.stickerset = TLRPC$StickerSet.TLdeserialize(abstractSerializedData, abstractSerializedData.readInt32(z), z);
+            }
+            if ((this.flags & MessagesController.UPDATE_MASK_SELECT_DIALOG) != 0) {
+                this.available_min_id = abstractSerializedData.readInt32(z);
+            }
+            if ((this.flags & MessagesController.UPDATE_MASK_NEW_MESSAGE) != 0) {
+                this.folder_id = abstractSerializedData.readInt32(z);
+            }
+            if ((this.flags & 16384) != 0) {
+                this.linked_chat_id = abstractSerializedData.readInt32(z);
+            }
+            if ((this.flags & MessagesController.UPDATE_MASK_MESSAGE_TEXT) != 0) {
+                this.location = TLRPC$ChannelLocation.TLdeserialize(abstractSerializedData, abstractSerializedData.readInt32(z), z);
+            }
+            this.pts = abstractSerializedData.readInt32(z);
+        } else if (z) {
+            throw new RuntimeException(String.format("wrong Vector magic, got %x", Integer.valueOf(readInt322)));
+        }
+    }
+
+    @Override // org.telegram.tgnet.TLRPC$TL_channelFull, org.telegram.tgnet.TLObject
+    public void serializeToStream(AbstractSerializedData abstractSerializedData) {
+        abstractSerializedData.writeInt32(constructor);
+        int i = this.can_view_participants ? this.flags | 8 : this.flags & -9;
+        this.flags = i;
+        int i2 = this.can_set_username ? i | 64 : i & -65;
+        this.flags = i2;
+        int i3 = this.can_set_stickers ? i2 | 128 : i2 & -129;
+        this.flags = i3;
+        int i4 = this.hidden_prehistory ? i3 | MessagesController.UPDATE_MASK_PHONE : i3 & -1025;
+        this.flags = i4;
+        int i5 = this.can_view_stats ? i4 | MessagesController.UPDATE_MASK_SEND_STATE : i4 & -4097;
+        this.flags = i5;
+        int i6 = this.can_set_location ? i5 | MessagesController.UPDATE_MASK_CHECK : i5 & -65537;
+        this.flags = i6;
+        abstractSerializedData.writeInt32(i6);
+        abstractSerializedData.writeInt32(this.id);
+        abstractSerializedData.writeString(this.about);
+        if ((this.flags & 1) != 0) {
+            abstractSerializedData.writeInt32(this.participants_count);
+        }
+        if ((this.flags & 2) != 0) {
+            abstractSerializedData.writeInt32(this.admins_count);
+        }
+        if ((this.flags & 4) != 0) {
+            abstractSerializedData.writeInt32(this.kicked_count);
+        }
+        if ((this.flags & 4) != 0) {
+            abstractSerializedData.writeInt32(this.banned_count);
+        }
+        if ((this.flags & MessagesController.UPDATE_MASK_CHAT) != 0) {
+            abstractSerializedData.writeInt32(this.online_count);
+        }
+        abstractSerializedData.writeInt32(this.read_inbox_max_id);
+        abstractSerializedData.writeInt32(this.read_outbox_max_id);
+        abstractSerializedData.writeInt32(this.unread_count);
+        this.chat_photo.serializeToStream(abstractSerializedData);
+        this.notify_settings.serializeToStream(abstractSerializedData);
+        this.exported_invite.serializeToStream(abstractSerializedData);
+        abstractSerializedData.writeInt32(481674261);
+        int size = this.bot_info.size();
+        abstractSerializedData.writeInt32(size);
+        for (int i7 = 0; i7 < size; i7++) {
+            this.bot_info.get(i7).serializeToStream(abstractSerializedData);
+        }
+        if ((this.flags & 16) != 0) {
+            abstractSerializedData.writeInt32(this.migrated_from_chat_id);
+        }
+        if ((this.flags & 16) != 0) {
+            abstractSerializedData.writeInt32(this.migrated_from_max_id);
+        }
+        if ((this.flags & 32) != 0) {
+            abstractSerializedData.writeInt32(this.pinned_msg_id);
+        }
+        if ((this.flags & MessagesController.UPDATE_MASK_READ_DIALOG_MESSAGE) != 0) {
+            this.stickerset.serializeToStream(abstractSerializedData);
+        }
+        if ((this.flags & MessagesController.UPDATE_MASK_SELECT_DIALOG) != 0) {
+            abstractSerializedData.writeInt32(this.available_min_id);
+        }
+        if ((this.flags & MessagesController.UPDATE_MASK_NEW_MESSAGE) != 0) {
+            abstractSerializedData.writeInt32(this.folder_id);
+        }
+        if ((this.flags & 16384) != 0) {
+            abstractSerializedData.writeInt32(this.linked_chat_id);
+        }
+        if ((this.flags & MessagesController.UPDATE_MASK_MESSAGE_TEXT) != 0) {
+            this.location.serializeToStream(abstractSerializedData);
+        }
+        abstractSerializedData.writeInt32(this.pts);
+    }
+}
